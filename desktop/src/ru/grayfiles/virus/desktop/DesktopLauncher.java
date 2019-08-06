@@ -1,8 +1,8 @@
-package ru.grayfiles.game.desktop;
+package ru.grayfiles.virus.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import ru.grayfiles.game.MyGame;
+import ru.grayfiles.virus.VirusGame;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
@@ -10,6 +10,6 @@ public class DesktopLauncher {
 		config.title = "VirusBattle";
 		config.width = 1920 / 4 * 3;
 		config.height = 1080 / 4 * 3;
-		new LwjglApplication(new MyGame(), config);
+		new LwjglApplication(new VirusGame(), config);
 	}
 }
