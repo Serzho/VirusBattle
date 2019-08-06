@@ -77,28 +77,37 @@ public class Field {
         byte[][] tempArray1 = new byte[tempArray.size()][tempArray.get(0).length];
         for(int i = 0; i < tempArray.size(); i++){
             tempArray1[i] = tempArray.get(i);
+            for(int k = 0; k < tempArray1[i].length; k++) tempArray1[i][k] -= 48;
         }
 
         return tempArray1;
     }
 
     public void step(byte player, float x, float y){
+        //System.out.printf("player %d x %f y %f", player, x, y);
+        for (byte[] cell : cells) {
+            for (int k = 0; k < cells[0].length; k++) {
+                System.out.printf(" %d", cell[k]);
+            }
+            System.out.println();
+        }
         if(box.contains(x, y)){
+            System.out.println("Contains");
             cellX = (int) ((x - box.x)/70);
             cellY = (int) ((y - box.y)/70);
-
+            System.out.printf("cellX %d, cellY %d \n", cellX, cellY);
             switch (cells[cellX][cellY]){
-                case 1:
-                    cells[cellX][cellY] = (byte) (3 + player);
+                case -1:
+                    cells[cellX][cellY] = (byte) (1 + player);
                     break;
-                case 2:
+                case 0:
                     cells[cellX][cellY] += (1 + player);
                     break;
-                case 3:
-                    if(player == 1)cells[cellX][cellY] = 5;
+                case 1:
+                    if(player == 1)cells[cellX][cellY] = 3;
                     break;
-                case 4:
-                    if(player == 0)cells[cellX][cellY] = 6;
+                case 2:
+                    if(player == 0)cells[cellX][cellY] = 4;
                     break;
             }
         }
@@ -107,31 +116,34 @@ public class Field {
     public void draw(SpriteBatch batch){
         batch.begin();
         batch.draw(image, box.x, box.y);
-
+        int drawX, drawY;
         for(int i = 0; i < cells.length; i++){
-            for(int k = 0; k < cells[0].length; k++)
+            for(int k = 0; k < cells[0].length; k++) {
+                drawX = (int) (box.x + i * 70);
+                drawY = (int) (box.y + k * 70);
                 switch (cells[i][k]) {
-                    case 0:
-                        batch.draw(blockedCellImage, i * 70 - 35, k * 70 - 35);
+                    case -2:
+                        batch.draw(blockedCellImage, drawX, drawY);
+                        break;
+                    case -1:
+                        batch.draw(baseImage, drawX, drawY);
                         break;
                     case 1:
-                        batch.draw(baseImage, i * 70 - 35, k * 70 - 35);
+                        batch.draw(redMarkImage, drawX, drawY);
+                        break;
+                    case 2:
+                        batch.draw(blueMarkImage, drawX, drawY);
                         break;
                     case 3:
-                        batch.draw(redMarkImage, i * 70 - 35, k * 70 - 35);
+                        batch.draw(blueMarkImage, drawX, drawY);
+                        batch.draw(redInfectedImage, drawX, drawY);
                         break;
                     case 4:
-                        batch.draw(blueMarkImage, i * 70 - 35, k * 70 - 35);
-                        break;
-                    case 5:
-                        batch.draw(blueMarkImage, i * 70 - 35, k * 70 - 35);
-                        batch.draw(redInfectedImage, i * 70 - 35, k * 70 - 35);
-                        break;
-                    case 6:
-                        batch.draw(redMarkImage, i * 70 - 35, k * 70 - 35);
-                        batch.draw(blueInfectedImage, i * 70 - 35, k * 70 - 35);
+                        batch.draw(redMarkImage, drawX, drawY);
+                        batch.draw(blueInfectedImage, drawX, drawY);
                         break;
                 }
+            }
         }
         batch.end();
     }
