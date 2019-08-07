@@ -12,9 +12,8 @@ public class PlayState extends State {
 
     private Field field;
     private OrthographicCamera camera;
-    private SpriteBatch spriteBatch;
 
-    public PlayState(GameStateManager gsm) {
+    PlayState(GameStateManager gsm) {
         super(gsm);
 
         camera = new OrthographicCamera();

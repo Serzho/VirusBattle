@@ -7,7 +7,7 @@ import ru.grayfiles.virus.VirusGame;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.title = "VirusBattle";
+		config.title = VirusGame.TITLE;
 		config.width = VirusGame.WIDTH;
 		config.height = VirusGame.HEIGHT;
 		new LwjglApplication(new VirusGame(), config);
