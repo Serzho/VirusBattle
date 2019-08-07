@@ -91,7 +91,7 @@ public class Field {
             }
             System.out.println();
         }
-        if(box.contains(x, y)){
+        if(box.contains(x, y + 1)){
             System.out.println("Contains");
             cellX = (int) ((x - box.x)/70);
             cellY = (int) ((y - box.y)/70);
