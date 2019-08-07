@@ -8,45 +8,36 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 
+import java.awt.HeadlessException;
 import java.awt.Rectangle;
 
 import ru.grayfiles.virus.game.Field;
+import ru.grayfiles.virus.game.states.GameStateManager;
+import ru.grayfiles.virus.game.states.MenuState;
 
 public class VirusGame extends ApplicationAdapter {
-	private OrthographicCamera camera;
+	public static final int WIDTH = 1920 / 4 * 3;
+	public static final int HEIGHT = 1080 / 4 * 3;
+
+	public static final String TITLE = "VirusGame";
+
+	private GameStateManager gsm;
 	private SpriteBatch batch;
 
-	private Field field;
-	
 	@Override
 	public void create () {
-		int width = 1920 / 4 * 3;
-		int height = 1080 / 4 * 3;
-
 		batch = new SpriteBatch();
+		gsm = new GameStateManager();
 
-		camera = new OrthographicCamera();
-		camera.setToOrtho(false, width, height);
-
-		field = new Field(width / 2 - 700 / 2, (height - 700) / 2, (byte) 0);
+		Gdx.gl.glClearColor(1, 1, 1, 1);
+		gsm.push(new MenuState(gsm));
 	}
 
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-		camera.update();
-		batch.setProjectionMatrix(camera.combined);
-
-		field.draw(batch);
-
-		if(Gdx.input.isTouched()){
-			Vector3 touchPos = new Vector3();
-			touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
-			camera.unproject(touchPos);
-			field.step((byte) 0, touchPos.x, touchPos.y);
-		}
+		gsm.update(Gdx.graphics.getDeltaTime());
+		gsm.render(batch);
 	}
 	
 	@Override

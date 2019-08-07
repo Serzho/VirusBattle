@@ -8,8 +8,8 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.title = "VirusBattle";
-		config.width = 1920 / 4 * 3;
-		config.height = 1080 / 4 * 3;
+		config.width = VirusGame.WIDTH;
+		config.height = VirusGame.HEIGHT;
 		new LwjglApplication(new VirusGame(), config);
 	}
 }
