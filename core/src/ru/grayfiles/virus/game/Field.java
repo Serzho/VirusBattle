@@ -84,17 +84,12 @@ public class Field {
 
     public void step(byte player, float x, float y){
         //System.out.printf("player %d x %f y %f", player, x, y);
-        for (byte[] cell : cells) {
-            for (int k = 0; k < cells[0].length; k++) {
-                System.out.printf(" %d", cell[k]);
-            }
-            System.out.println();
-        }
+        //printField();
         if(box.contains(x, y + 1)){
-            System.out.println("Contains");
+            //System.out.println("Contains");
             cellX = (int) ((x - box.x)/70);
             cellY = (int) ((y - box.y)/70);
-            System.out.printf("cellX %d, cellY %d \n", cellX, cellY);
+            //System.out.printf("cellX %d, cellY %d \n", cellX, cellY);
             switch (cells[cellX][cellY]){
                 case -1:
                     cells[cellX][cellY] = (byte) (1 + player);
@@ -109,6 +104,15 @@ public class Field {
                     if(player == 0)cells[cellX][cellY] = 4;
                     break;
             }
+        }
+    }
+
+    private void printField(){
+        for (byte[] cell : cells) {
+            for (int k = 0; k < cells[0].length; k++) {
+                System.out.printf(" %d", cell[k]);
+            }
+            System.out.println();
         }
     }
 
@@ -147,4 +151,8 @@ public class Field {
         batch.end();
     }
 
+    public int getFieldSize(){
+        System.out.printf("Field size = %d \n", cells.length * cells.length);
+        return cells.length;
+    }
 }
