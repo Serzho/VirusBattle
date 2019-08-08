@@ -19,9 +19,14 @@ public class PlayState extends State {
     private Byte quantityMoves;
     private Byte remainMoves;
 
+    private int step;
+
+    private GameStateManager gsm;
 
     PlayState(GameStateManager gsm) {
         super(gsm);
+
+        this.gsm = gsm;
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, VirusGame.WIDTH, VirusGame.HEIGHT);
@@ -30,6 +35,7 @@ public class PlayState extends State {
 
         quantityPlayers = 2;
         currentPlayer = 0;
+        step = 0;
 
         quantityMoves = (byte) Math.round(Math.sqrt(field.getFieldSize()) / 10 + 2);
         remainMoves = quantityMoves;
@@ -42,21 +48,29 @@ public class PlayState extends State {
             Vector3 touchPos = new Vector3();
             touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
             camera.unproject(touchPos);
-            if(field.step(currentPlayer, touchPos.x, touchPos.y, remainMoves == quantityMoves))
-                if (remainMoves > 0) remainMoves--;
-                else {
-                    remainMoves = quantityMoves;
-                    if (currentPlayer == quantityPlayers - 1) currentPlayer = 0;
-                    else currentPlayer++;
-                }
-            //System.out.printf("Current Player %d \n", currentPlayer);
-            //System.out.printf("Remain moves %d \n", remainMoves);
+            step(touchPos);
+            if(field.checkWin(step < quantityMoves * 3) != -1) gsm.set(new PlayState(gsm));
+        }
+    }
 
-            try {
-                Thread.sleep(50);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+    private void step(Vector3 touchPos){
+        if(field.step(currentPlayer, touchPos.x, touchPos.y, remainMoves.equals(quantityMoves))) {
+            if (remainMoves > 0) remainMoves--;
+            else {
+                remainMoves = quantityMoves;
+                if (currentPlayer == quantityPlayers - 1) currentPlayer = 0;
+                else currentPlayer++;
             }
+            step++;
+            //System.out.printf("Step %d \n", step);
+        }
+        //System.out.printf("Current Player %d \n", currentPlayer);
+        //System.out.printf("Remain moves %d \n", remainMoves);
+
+        try {
+            Thread.sleep(50);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
@@ -75,4 +89,6 @@ public class PlayState extends State {
     public void dispose() {
 
     }
+
+
 }

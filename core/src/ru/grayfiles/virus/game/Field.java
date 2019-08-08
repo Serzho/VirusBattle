@@ -88,8 +88,8 @@ public class Field {
         //printField();
         if(box.contains(x, y + 1)){
             //System.out.println("Contains");
-            cellX = (int) ((x - box.x)/70);
-            cellY = (int) ((y - box.y)/70);
+            cellX = (int) ((x - box.x) / 70);
+            cellY = (int) ((y - box.y) / 70);
             //System.out.printf("cellX %d, cellY %d \n", cellX, cellY);
             switch (cells[cellX][cellY]){
                 case -1:
@@ -122,6 +122,27 @@ public class Field {
             }
         }
         return isDone;
+    }
+
+    public byte checkWin(boolean isFirstSteps){
+        byte playerWin = -1;
+
+        System.out.printf("Is First steps %b \n", isFirstSteps);
+        if(!isFirstSteps) {
+            boolean firstPlayerWin = true;
+            boolean secondPlayerWin = true;
+
+            for (byte[] cell : cells)
+                for (int k = 0; k < cells[0].length; k++) {
+                    if (cell[k] == 1) secondPlayerWin = false;
+                    else if (cell[k] == 2) firstPlayerWin = false;
+                }
+            if (firstPlayerWin) playerWin = 0;
+            else if (secondPlayerWin) playerWin = 1;
+
+        }
+        System.out.printf("Winned player %d \n", playerWin);
+        return playerWin;
     }
 
     private boolean isCorrectMove(byte player, int cellX, int cellY){
