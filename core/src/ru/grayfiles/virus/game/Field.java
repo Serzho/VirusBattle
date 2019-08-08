@@ -82,7 +82,7 @@ public class Field {
         return tempArray1;
     }
 
-    public boolean step(byte player, float x, float y){
+    public boolean step(byte player, float x, float y, boolean isFirstMove){
         boolean isDone = false;
         //System.out.printf("player %d x %f y %f", player, x, y);
         //printField();
@@ -93,27 +93,55 @@ public class Field {
             //System.out.printf("cellX %d, cellY %d \n", cellX, cellY);
             switch (cells[cellX][cellY]){
                 case -1:
-                    cells[cellX][cellY] = (byte) (1 + player);
-                    isDone = true;
-                    break;
-                case 0:
-                    cells[cellX][cellY] += (1 + player);
-                    isDone = true;
-                    break;
-                case 1:
-                    if(player == 1) if (cells[cellX][cellY] != 3) {
-                        cells[cellX][cellY] = 3;
+                    if(isFirstMove) {
+                        cells[cellX][cellY] = (byte) (1 + player);
                         isDone = true;
                     }
                     break;
-                case 2:
-                    if(player == 0) if (cells[cellX][cellY] != 4) {
-                        cells[cellX][cellY] = 4;
+                case 0:
+                    if (isCorrectMove(player, cellX, cellY)){
+                        cells[cellX][cellY] += (1 + player);
                         isDone = true;
+                    }
+                    break;
+                case 1:
+                    if (isCorrectMove(player, cellX, cellY)) {
+                        if (player == 1) if (cells[cellX][cellY] != 3) {
+                            cells[cellX][cellY] = 3;
+                            isDone = true;
+                        }
+                    }
+                    break;
+                case 2:
+                    if (isCorrectMove(player, cellX, cellY)) {
+                        if (player == 0) if (cells[cellX][cellY] != 4) {
+                            cells[cellX][cellY] = 4;
+                            isDone = true;
+                        }
                     }
             }
         }
         return isDone;
+    }
+
+    private boolean isCorrectMove(byte player, int cellX, int cellY){
+        boolean isCorrect = false;
+        byte tempCell;
+        for(int i = cellX - 1; i < cellX + 2; i++)
+            for(int k = cellY - 1; k < cellY + 2; k++) {
+                tempCell = cells[correctIndex(i)][correctIndex(k)];
+                //System.out.printf("tempCell %d first %d second %d isCorrect %b \n", tempCell, 1 + player, 4 - player, isCorrect);
+                if(tempCell == 1 + player || tempCell == 4 - player) isCorrect = true;
+            }
+        return isCorrect;
+    }
+
+    private int correctIndex(int index){
+        //System.out.printf("index %d \n", index);
+        if (index < 0) index = 0;
+        else if (index > 9) index = 9;
+        //System.out.printf("second Index %d \n", index);
+        return index;
     }
 
     private void printField(){

@@ -42,15 +42,15 @@ public class PlayState extends State {
             Vector3 touchPos = new Vector3();
             touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
             camera.unproject(touchPos);
-            if(field.step(currentPlayer, touchPos.x, touchPos.y))
+            if(field.step(currentPlayer, touchPos.x, touchPos.y, remainMoves == quantityMoves))
                 if (remainMoves > 0) remainMoves--;
                 else {
                     remainMoves = quantityMoves;
                     if (currentPlayer == quantityPlayers - 1) currentPlayer = 0;
                     else currentPlayer++;
                 }
-            System.out.printf("Current Player %d \n", currentPlayer);
-            System.out.printf("Remain moves %d \n", remainMoves);
+            //System.out.printf("Current Player %d \n", currentPlayer);
+            //System.out.printf("Remain moves %d \n", remainMoves);
 
             try {
                 Thread.sleep(50);
