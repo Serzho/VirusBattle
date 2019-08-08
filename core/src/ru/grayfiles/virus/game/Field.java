@@ -82,7 +82,8 @@ public class Field {
         return tempArray1;
     }
 
-    public void step(byte player, float x, float y){
+    public boolean step(byte player, float x, float y){
+        boolean isDone = false;
         //System.out.printf("player %d x %f y %f", player, x, y);
         //printField();
         if(box.contains(x, y + 1)){
@@ -93,18 +94,26 @@ public class Field {
             switch (cells[cellX][cellY]){
                 case -1:
                     cells[cellX][cellY] = (byte) (1 + player);
+                    isDone = true;
                     break;
                 case 0:
                     cells[cellX][cellY] += (1 + player);
+                    isDone = true;
                     break;
                 case 1:
-                    if(player == 1)cells[cellX][cellY] = 3;
+                    if(player == 1) if (cells[cellX][cellY] != 3) {
+                        cells[cellX][cellY] = 3;
+                        isDone = true;
+                    }
                     break;
                 case 2:
-                    if(player == 0)cells[cellX][cellY] = 4;
-                    break;
+                    if(player == 0) if (cells[cellX][cellY] != 4) {
+                        cells[cellX][cellY] = 4;
+                        isDone = true;
+                    }
             }
         }
+        return isDone;
     }
 
     private void printField(){
@@ -138,12 +147,12 @@ public class Field {
                         batch.draw(blueMarkImage, drawX, drawY);
                         break;
                     case 3:
-                        batch.draw(blueMarkImage, drawX, drawY);
-                        batch.draw(redInfectedImage, drawX, drawY);
-                        break;
-                    case 4:
                         batch.draw(redMarkImage, drawX, drawY);
                         batch.draw(blueInfectedImage, drawX, drawY);
+                        break;
+                    case 4:
+                        batch.draw(blueMarkImage, drawX, drawY);
+                        batch.draw(redInfectedImage, drawX, drawY);
                         break;
                 }
             }
