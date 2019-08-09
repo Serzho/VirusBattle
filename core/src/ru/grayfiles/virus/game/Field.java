@@ -129,19 +129,50 @@ public class Field {
 
         System.out.printf("Is First steps %b \n", isFirstSteps);
         if(!isFirstSteps) {
-            boolean firstPlayerWin = true;
-            boolean secondPlayerWin = true;
-
-            for (byte[] cell : cells)
-                for (int k = 0; k < cells[0].length; k++) {
-                    if (cell[k] == 1) secondPlayerWin = false;
-                    else if (cell[k] == 2) firstPlayerWin = false;
-                }
-            if (firstPlayerWin) playerWin = 0;
-            else if (secondPlayerWin) playerWin = 1;
-
+            playerWin = checkKillingVictory();
+            if(playerWin == -1) playerWin = checkToiletVictory();
         }
         System.out.printf("Winned player %d \n", playerWin);
+        return playerWin;
+    }
+
+    private byte checkToiletVictory() {
+        byte playerWin = -1;
+
+        boolean firstPlayerWin = true;
+        boolean secondPlayerWin = true;
+
+        for (int i = 0; i < 10; i++)
+            for (int k = 0; k < 10; k++){
+                System.out.printf("CELL X %d CELL Y %d CHECK PLAYER0 %b CHECK PLAYER1 %b \n", i, k, isCorrectMove((byte) 0, i, k) && cells[i][k] != 4 && cells[i][k] != 1, isCorrectMove((byte) 1, i, k) && cells[i][k] != 3 && cells[i][k] != 2);
+                if(isCorrectMove((byte) 0, i, k) && cells[i][k] != 4 && cells[i][k] != 1)secondPlayerWin = false;
+                if(isCorrectMove((byte) 1, i, k) && cells[i][k] != 3 && cells[i][k] != 2)firstPlayerWin = false;
+            }
+
+        if (firstPlayerWin) playerWin = 0;
+        else if (secondPlayerWin) playerWin = 1;
+
+        System.out.printf("Win by toilet %d \n", playerWin);
+
+        return playerWin;
+    }
+
+    private byte checkKillingVictory(){
+        byte playerWin = -1;
+
+        boolean firstPlayerWin = true;
+        boolean secondPlayerWin = true;
+
+        for (byte[] cell : cells)
+            for (int k = 0; k < cells[0].length; k++) {
+                if (cell[k] == 1) secondPlayerWin = false;
+                else if (cell[k] == 2) firstPlayerWin = false;
+            }
+        if (firstPlayerWin) playerWin = 0;
+        else if (secondPlayerWin) playerWin = 1;
+
+        System.out.printf("Win by killing %d \n", playerWin);
+
         return playerWin;
     }
 
@@ -154,6 +185,8 @@ public class Field {
                 //System.out.printf("tempCell %d first %d second %d isCorrect %b \n", tempCell, 1 + player, 4 - player, isCorrect);
                 if(tempCell == 1 + player || tempCell == 4 - player) isCorrect = true;
             }
+
+        if(cells[cellX][cellY] == 1 + player || cells[cellX][cellY] > 2)isCorrect = false;
         return isCorrect;
     }
 
