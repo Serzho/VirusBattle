@@ -54,6 +54,7 @@ public class PlayState extends State {
     }
 
     private void step(Vector3 touchPos){
+        System.out.printf("STEP NUBMER %d \n", step);
         if(field.step(currentPlayer, touchPos.x, touchPos.y, remainMoves.equals(quantityMoves))) {
             if (remainMoves > 0) remainMoves--;
             else {
