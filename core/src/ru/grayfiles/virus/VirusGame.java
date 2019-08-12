@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import ru.grayfiles.virus.game.states.GameStateManager;
-import ru.grayfiles.virus.game.states.MenuState;
+import ru.grayfiles.virus.game.states.menuStates.MainMenu;
 
 public class VirusGame extends ApplicationAdapter {
 	public static final int WIDTH = 1920 / 4 * 3;
@@ -23,7 +23,7 @@ public class VirusGame extends ApplicationAdapter {
 		gsm = new GameStateManager();
 
 		Gdx.gl.glClearColor(1, 1, 1, 1);
-		gsm.push(new MenuState(gsm));
+		gsm.push(new MainMenu(gsm));
 	}
 
 	@Override

@@ -1,4 +1,4 @@
-package ru.grayfiles.virus.game.states;
+package ru.grayfiles.virus.game.states.playStates;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -6,9 +6,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 
 import ru.grayfiles.virus.VirusGame;
-import ru.grayfiles.virus.game.Field;
+import ru.grayfiles.virus.game.classes.Field;
+import ru.grayfiles.virus.game.states.GameStateManager;
+import ru.grayfiles.virus.game.states.State;
 
-public class PlayState extends State {
+public class MultiPlayerOnline extends State {
 
     private Field field;
     private OrthographicCamera camera;
@@ -23,7 +25,7 @@ public class PlayState extends State {
 
     private GameStateManager gsm;
 
-    PlayState(GameStateManager gsm) {
+    public MultiPlayerOnline(GameStateManager gsm) {
         super(gsm);
 
         this.gsm = gsm;
@@ -48,8 +50,8 @@ public class PlayState extends State {
             Vector3 touchPos = new Vector3();
             touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
             camera.unproject(touchPos);
-            step(touchPos);
-            if(field.checkWin(step < quantityMoves * 3) != -1) gsm.set(new PlayState(gsm));
+            //step(touchPos);
+            //if(field.checkWin(step < quantityMoves * 3) != -1) gsm.set(new MultiPlayerOnline(gsm));
         }
     }
 

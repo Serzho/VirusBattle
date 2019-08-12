@@ -1,4 +1,4 @@
-package ru.grayfiles.virus.game;
+package ru.grayfiles.virus.game.classes;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
