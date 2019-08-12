@@ -3,7 +3,6 @@ package ru.grayfiles.virus.game.states.menuStates;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -12,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-import java.util.ArrayList;
 
 import ru.grayfiles.virus.VirusGame;
 import ru.grayfiles.virus.game.states.GameStateManager;
@@ -29,20 +27,21 @@ public class MultiPlayerMenu extends State {
     private ImageTextButton online;
     private ImageTextButton offline;
 
-    public MultiPlayerMenu(final GameStateManager gsm) {
+    MultiPlayerMenu(final GameStateManager gsm) {
 
         super(gsm);
 
+        Skin skin = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
-        online = new ImageTextButton("online", new Skin(Gdx.files.internal("skin/glassy-ui.json")));
-        online.setPosition(VirusGame.WIDTH / 2 - online.getWidth() / 2, VirusGame.HEIGHT / 2 - VirusGame.HEIGHT / 10);
+        online = new ImageTextButton("online", skin);
+        online.setPosition(Math.round(VirusGame.WIDTH / 2.0 - online.getWidth() / 2.0), Math.round(VirusGame.HEIGHT / 2.0 - VirusGame.HEIGHT / 10.0));
         onListener();
         stage.addActor(online);
 
-        offline = new ImageTextButton("offline", new Skin(Gdx.files.internal("skin/glassy-ui.json")));
-        offline.setPosition(VirusGame.WIDTH / 2 - offline.getWidth() / 2, VirusGame.HEIGHT / 2 + VirusGame.HEIGHT / 10);
+        offline = new ImageTextButton("offline", skin);
+        offline.setPosition(Math.round(VirusGame.WIDTH / 2.0 - offline.getWidth() / 2.0), Math.round(VirusGame.HEIGHT / 2.0 + VirusGame.HEIGHT / 10.0));
         offListener();
         stage.addActor(offline);
     }

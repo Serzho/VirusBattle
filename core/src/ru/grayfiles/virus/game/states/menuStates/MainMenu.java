@@ -2,7 +2,6 @@ package ru.grayfiles.virus.game.states.menuStates;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -10,8 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-
-import java.util.ArrayList;
 
 import ru.grayfiles.virus.VirusGame;
 import ru.grayfiles.virus.game.states.GameStateManager;
@@ -31,16 +28,19 @@ public class MainMenu extends State {
     public MainMenu(final GameStateManager gsm) {
         super(gsm);
 
+        Skin skin = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
+
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
-        singlePlayer = new ImageTextButton("SinglePlayer", new Skin(Gdx.files.internal("skin/glassy-ui.json")));
-        singlePlayer.setPosition(VirusGame.WIDTH / 2 - singlePlayer.getWidth() / 2, VirusGame.HEIGHT / 2 - VirusGame.HEIGHT / 10);
+
+        singlePlayer = new ImageTextButton("SinglePlayer", skin);
+        singlePlayer.setPosition(Math.round(VirusGame.WIDTH / 2.0 - singlePlayer.getWidth() / 2.0), Math.round(VirusGame.HEIGHT / 2.0 - VirusGame.HEIGHT / 10.0));
         spListener();
         stage.addActor(singlePlayer);
 
-        multiPlayer = new ImageTextButton("MultiPlayer", new Skin(Gdx.files.internal("skin/glassy-ui.json")));
-        multiPlayer.setPosition(VirusGame.WIDTH / 2 - multiPlayer.getWidth() / 2, VirusGame.HEIGHT / 2 + VirusGame.HEIGHT / 10);
+        multiPlayer = new ImageTextButton("MultiPlayer", skin);
+        multiPlayer.setPosition(Math.round(VirusGame.WIDTH / 2.0 - multiPlayer.getWidth() / 2.0), Math.round(VirusGame.HEIGHT / 2.0 + VirusGame.HEIGHT / 10.0));
         mpListener();
         stage.addActor(multiPlayer);
 

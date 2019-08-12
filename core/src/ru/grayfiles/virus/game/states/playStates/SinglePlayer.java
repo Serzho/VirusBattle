@@ -43,6 +43,8 @@ public class SinglePlayer extends State {
 
         quantityMoves = (byte) Math.round(Math.sqrt(field.getFieldSize()) / 10 + 2);
         remainMoves = quantityMoves;
+
+        System.out.printf("Difficult: %d \n", difficult);
         System.out.printf("Quantity moves = %d \n", quantityMoves);
     }
 
@@ -56,6 +58,7 @@ public class SinglePlayer extends State {
             //if(field.checkWin(step < quantityMoves * 3) != -1) gsm.set(new SinglePlayer(gsm));
         }
     }
+
 
     private void step(Vector3 touchPos){
         System.out.printf("STEP NUBMER %d \n", step);
