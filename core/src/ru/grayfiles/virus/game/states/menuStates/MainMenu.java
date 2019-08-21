@@ -19,8 +19,8 @@ public class MainMenu extends State {
     private ImageTextButton singlePlayer;
     private ImageTextButton multiPlayer;
 
-    private ImageButton statistics;
-    private ImageButton settings;
+    private ImageTextButton statistics; //ImageButton
+    private ImageTextButton settings; //ImageButton
     private ImageTextButton exit;
 
     private Group actors = new Group();
@@ -32,6 +32,16 @@ public class MainMenu extends State {
         exit.setPosition(Math.round(VirusGame.WIDTH - exit.getWidth()), Math.round(VirusGame.HEIGHT - exit.getHeight()));
         exListener();
         actors.addActor(exit);
+
+        settings = new ImageTextButton("settings", skin);
+        settings.setPosition(0, Math.round(VirusGame.HEIGHT - settings.getHeight()));
+        setListener();
+        actors.addActor(settings);
+
+        statistics = new ImageTextButton("statistics", skin);
+        statistics.setPosition(settings.getWidth() + 5, Math.round(VirusGame.HEIGHT - statistics.getHeight()));
+        statListener();
+        actors.addActor(statistics);
 
         singlePlayer = new ImageTextButton("SinglePlayer", skin);
         singlePlayer.setPosition(Math.round(VirusGame.WIDTH / 2.0 - singlePlayer.getWidth() / 2.0), Math.round(VirusGame.HEIGHT / 2.0 - VirusGame.HEIGHT / 10.0));
@@ -52,6 +62,36 @@ public class MainMenu extends State {
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button){
                 ConfirmQuit confirmQuit = new ConfirmQuit(skin, stage);
+            }
+            @Override
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+        });
+    }
+
+    private void setListener(){
+        settings.addListener(new InputListener(){
+            @Override
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button){
+                System.out.println("Settings");
+                stage.clear();
+                gsm.set(new SettingsMenu(gsm));
+            }
+            @Override
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+        });
+    }
+
+    private void statListener(){
+        statistics.addListener(new InputListener(){
+            @Override
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button){
+                System.out.println("Statistics");
+                stage.clear();
+                gsm.set(new StatisticsMenu(gsm));
             }
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
