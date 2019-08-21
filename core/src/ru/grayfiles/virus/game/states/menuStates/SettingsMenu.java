@@ -10,17 +10,9 @@ import ru.grayfiles.virus.game.states.GameStateManager;
 import ru.grayfiles.virus.game.states.State;
 
 public class SettingsMenu extends State {
-
-    private Stage stage;
-
-
-
     public SettingsMenu(final GameStateManager gsm) {
-
         super(gsm);
 
-        stage = new Stage(new ScreenViewport());
-        Gdx.input.setInputProcessor(stage);
     }
 
     @Override

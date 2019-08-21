@@ -18,7 +18,7 @@
         android:testOnly="true"
         android:theme="@style/GdxTheme" >
         <activity
-            android:name="ru.grayfiles.game.AndroidLauncher"
+            android:name="ru.grayfiles.virus.AndroidLauncher"
             android:configChanges="keyboard|keyboardHidden|navigation|orientation|screenSize|screenLayout"
             android:label="@string/app_name"
             android:screenOrientation="landscape" >
@@ -28,11 +28,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <provider
-            android:name="com.android.tools.ir.server.InstantRunContentProvider"
-            android:authorities="ru.grayfiles.game.com.android.tools.ir.server.InstantRunContentProvider"
-            android:multiprocess="true" />
     </application>
 
 </manifest>

@@ -1,5 +1,7 @@
 package ru.grayfiles.virus.game.classes;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
@@ -15,6 +17,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Locale;
 
 public class Field {
 
@@ -54,27 +57,16 @@ public class Field {
     private byte[][] getSavedField(byte type){
         ArrayList<byte[]> tempArray = new ArrayList<>();
 
-        try {
-            URL path = ClassLoader.getSystemResource(String.format("fields\\%d.txt", type));
-            if(path != null){
-                File f = new File(path.toURI());
-                BufferedReader savedField = new BufferedReader(new InputStreamReader(new FileInputStream(f)));
-                String line;
-
-                while ((line = savedField.readLine()) != null) {
-                    tempArray.add(line.getBytes());
-                }
-            }
-            else{
-                System.out.println(System.getProperty("user.dir"));
-            }
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
+        String path = String.format(Locale.US, "fields/%d.txt", type);
+        //for(FileHandle f : Gdx.files.local("fields").list()) System.out.println(f.name());
+        FileHandle savedField = Gdx.files.internal(path);
+        boolean exists = savedField.exists();
+        System.out.println(exists);
+        if(exists)
+            for(String line : savedField.readString().split("\r?\n"))
+                tempArray.add(line.getBytes());
+        else{
+            System.out.println(System.getProperty("user.dir"));
         }
 
         byte[][] tempArray1 = new byte[tempArray.size()][tempArray.get(0).length];

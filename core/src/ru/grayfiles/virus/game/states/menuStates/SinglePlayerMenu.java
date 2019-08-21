@@ -3,6 +3,7 @@ package ru.grayfiles.virus.game.states.menuStates;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -19,26 +20,21 @@ import ru.grayfiles.virus.game.states.playStates.SinglePlayer;
 
 public class SinglePlayerMenu extends State {
 
-    private Stage stage;
-
     private String[] levels;
 
     private ImageButton exit;
     private ImageTextButton play;
     private SelectBox<String> setDifficult;
 
+    private Group actors = new Group();
+
     SinglePlayerMenu(final GameStateManager gsm) {
-
         super(gsm);
-
-        Skin skin = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
-        stage = new Stage(new ScreenViewport());
-        Gdx.input.setInputProcessor(stage);
 
         play = new ImageTextButton("Play", skin);
         play.setPosition(Math.round(VirusGame.WIDTH / 2.0 - play.getWidth() / 2.0), Math.round(VirusGame.HEIGHT / 2.0 - VirusGame.HEIGHT / 10.0));
         pListener();
-        stage.addActor(play);
+        actors.addActor(play);
 
         levels = new String[]{"Peaceful", "Easy", "Medium", "Hard", "Jesus"};
         setDifficult = new SelectBox<>(skin);
@@ -46,7 +42,9 @@ public class SinglePlayerMenu extends State {
         setDifficult.setWidth((float) VirusGame.WIDTH / 4);
         setDifficult.setHeight((float) VirusGame.HEIGHT / 10);
         setDifficult.setPosition(Math.round(VirusGame.WIDTH / 2.0 - setDifficult.getWidth() / 2.0), Math.round(VirusGame.HEIGHT / 2.0 + VirusGame.HEIGHT / 10.0));
-        stage.addActor(setDifficult);
+        actors.addActor(setDifficult);
+
+        stage.addActor(actors);
     }
 
     private void pListener(){

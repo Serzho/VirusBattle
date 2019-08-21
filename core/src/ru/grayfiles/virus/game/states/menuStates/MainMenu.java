@@ -2,48 +2,62 @@ package ru.grayfiles.virus.game.states.menuStates;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import ru.grayfiles.virus.VirusGame;
 import ru.grayfiles.virus.game.states.GameStateManager;
 import ru.grayfiles.virus.game.states.State;
+import ru.grayfiles.virus.game.states.menuStates.popups.ConfirmQuit;
 
 public class MainMenu extends State {
-
-    private Stage stage;
 
     private ImageTextButton singlePlayer;
     private ImageTextButton multiPlayer;
 
     private ImageButton statistics;
     private ImageButton settings;
-    private ImageButton exit;
+    private ImageTextButton exit;
+
+    private Group actors = new Group();
 
     public MainMenu(final GameStateManager gsm) {
         super(gsm);
 
-        Skin skin = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
-
-        stage = new Stage(new ScreenViewport());
-        Gdx.input.setInputProcessor(stage);
-
+        exit = new ImageTextButton("exit", skin);
+        exit.setPosition(Math.round(VirusGame.WIDTH - exit.getWidth()), Math.round(VirusGame.HEIGHT - exit.getHeight()));
+        exListener();
+        actors.addActor(exit);
 
         singlePlayer = new ImageTextButton("SinglePlayer", skin);
         singlePlayer.setPosition(Math.round(VirusGame.WIDTH / 2.0 - singlePlayer.getWidth() / 2.0), Math.round(VirusGame.HEIGHT / 2.0 - VirusGame.HEIGHT / 10.0));
         spListener();
-        stage.addActor(singlePlayer);
+        actors.addActor(singlePlayer);
 
         multiPlayer = new ImageTextButton("MultiPlayer", skin);
         multiPlayer.setPosition(Math.round(VirusGame.WIDTH / 2.0 - multiPlayer.getWidth() / 2.0), Math.round(VirusGame.HEIGHT / 2.0 + VirusGame.HEIGHT / 10.0));
         mpListener();
-        stage.addActor(multiPlayer);
+        actors.addActor(multiPlayer);
 
+        stage.addActor(actors);
+
+    }
+
+    private void exListener(){
+        exit.addListener(new InputListener(){
+            @Override
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button){
+                ConfirmQuit confirmQuit = new ConfirmQuit(skin, stage);
+            }
+            @Override
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+        });
     }
 
     private void spListener(){
