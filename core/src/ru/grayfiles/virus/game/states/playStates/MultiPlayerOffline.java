@@ -4,11 +4,17 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 
 import ru.grayfiles.virus.VirusGame;
 import ru.grayfiles.virus.game.classes.Field;
 import ru.grayfiles.virus.game.states.GameStateManager;
 import ru.grayfiles.virus.game.states.State;
+import ru.grayfiles.virus.game.states.menuStates.MainMenu;
+import ru.grayfiles.virus.game.states.menuStates.popups.ConfirmStop;
 
 public class MultiPlayerOffline extends State {
 
@@ -24,6 +30,10 @@ public class MultiPlayerOffline extends State {
     private int step;
 
     private GameStateManager gsm;
+
+    private ImageTextButton back;
+
+    private Group actors = new Group();
 
     public MultiPlayerOffline(GameStateManager gsm) {
         super(gsm);
@@ -42,6 +52,27 @@ public class MultiPlayerOffline extends State {
         quantityMoves = (byte) Math.round(Math.sqrt(field.getFieldSize()) / 10 + 2);
         remainMoves = quantityMoves;
         System.out.printf("Quantity moves = %d \n", quantityMoves);
+
+        back = new ImageTextButton("back", skin);
+        back.setPosition(0, VirusGame.HEIGHT - back.getHeight());
+        bkListener();
+        actors.addActor(back);
+
+
+        stage.addActor(actors);
+    }
+
+    private void bkListener(){
+        back.addListener(new InputListener(){
+            @Override
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button){
+                new ConfirmStop(skin, stage, field.getField(), 1, gsm);
+            }
+            @Override
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+        });
     }
 
     @Override
@@ -86,6 +117,9 @@ public class MultiPlayerOffline extends State {
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.setProjectionMatrix(camera.combined);
         field.draw(spriteBatch);
+
+        stage.act();
+        stage.draw();
     }
 
     @Override

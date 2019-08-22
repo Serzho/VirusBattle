@@ -8,11 +8,13 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 
 import ru.grayfiles.virus.VirusGame;
 import ru.grayfiles.virus.game.states.GameStateManager;
 import ru.grayfiles.virus.game.states.State;
 import ru.grayfiles.virus.game.states.menuStates.popups.ConfirmQuit;
+import ru.grayfiles.virus.game.states.menuStates.popups.SelectMode;
 
 public class MainMenu extends State {
 
@@ -61,7 +63,7 @@ public class MainMenu extends State {
         exit.addListener(new InputListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button){
-                ConfirmQuit confirmQuit = new ConfirmQuit(skin, stage);
+                new ConfirmQuit(skin, stage);
             }
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -119,9 +121,7 @@ public class MainMenu extends State {
         multiPlayer.addListener(new InputListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button){
-                System.out.println("MultiPlayer");
-                stage.clear();
-                gsm.set(new MultiPlayerMenu(gsm));
+                new SelectMode(skin, stage, gsm);
             }
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {

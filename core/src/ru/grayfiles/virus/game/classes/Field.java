@@ -282,6 +282,8 @@ public class Field {
         batch.end();
     }
 
+    public byte[][] getField(){return cells;}
+
     public int getFieldSize(){
         System.out.printf("Field size = %d \n", cells.length * cells.length);
         return cells.length;

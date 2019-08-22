@@ -19,7 +19,7 @@ import ru.grayfiles.virus.game.states.State;
 import ru.grayfiles.virus.game.states.playStates.MultiPlayerOffline;
 import ru.grayfiles.virus.game.states.playStates.MultiPlayerOnline;
 
-public class MultiPlayerMenu extends State {
+public class OnlineMenu extends State {
 
     private ImageButton exit;
 
@@ -28,18 +28,9 @@ public class MultiPlayerMenu extends State {
 
     private Group actors = new Group();
 
-    MultiPlayerMenu(final GameStateManager gsm) {
+    public OnlineMenu(final GameStateManager gsm) {
         super(gsm);
 
-        online = new ImageTextButton("online", skin);
-        online.setPosition(Math.round(VirusGame.WIDTH / 2.0 - online.getWidth() / 2.0), Math.round(VirusGame.HEIGHT / 2.0 - VirusGame.HEIGHT / 10.0));
-        onListener();
-        actors.addActor(online);
-
-        offline = new ImageTextButton("offline", skin);
-        offline.setPosition(Math.round(VirusGame.WIDTH / 2.0 - offline.getWidth() / 2.0), Math.round(VirusGame.HEIGHT / 2.0 + VirusGame.HEIGHT / 10.0));
-        offListener();
-        actors.addActor(offline);
 
         stage.addActor(actors);
     }
@@ -59,20 +50,6 @@ public class MultiPlayerMenu extends State {
         });
     }
 
-    private void offListener(){
-        offline.addListener(new InputListener(){
-            @Override
-            public void touchUp (InputEvent event, float x, float y, int pointer, int button){
-                System.out.println("offline");
-                stage.clear();
-                gsm.set(new MultiPlayerOffline(gsm));
-            }
-            @Override
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                return true;
-            }
-        });
-    }
 
     @Override
     protected void handleInput() {
