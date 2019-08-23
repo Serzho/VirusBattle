@@ -18,11 +18,11 @@ import ru.grayfiles.virus.game.states.GameStateManager;
 import ru.grayfiles.virus.game.states.playStates.MultiPlayerOffline;
 import ru.grayfiles.virus.game.states.playStates.MultiPlayerOnline;
 
-public class ConfirmLoadSave {
+class ConfirmLoadSave {
 
-    private String path;
+    private String path;//
 
-    public ConfirmLoadSave(Skin skin, final Stage stage, final int type, final GameStateManager gsm) {
+    ConfirmLoadSave(Skin skin, final Stage stage, final int type, final GameStateManager gsm) {
         Dialog dialog = new Dialog("Load Save", skin) {
             public void result(Object obj) {
                 System.out.println("result " + obj);
@@ -33,8 +33,8 @@ public class ConfirmLoadSave {
         yes.addListener(new InputListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button){
-                if(type == 0)path = String.format(Locale.US, "saves/singleplayer/save.txt");
-                else path = String.format(Locale.US, "saves/multiplayer/save.txt");
+                if(type == 0)path = "saves/singleplayer/save.txt";
+                else path = "saves/multiplayer/save.txt";
                 FileHandle savedField = Gdx.files.internal(path);
                 ArrayList<byte[]> tempArray = new ArrayList<>();
 
