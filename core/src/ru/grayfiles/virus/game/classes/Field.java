@@ -54,6 +54,22 @@ public class Field {
         this.checkedAtackedCells = new HashSet<>();
     }
 
+    public Field(int x, int y, byte[][] savedField){
+        this.image = new Texture("field.jpg");
+        this.baseImage = new Texture("baseImage.png");
+        this.blueMarkImage = new Texture("blueMark.png");
+        this.redMarkImage = new Texture("redMark.png");
+        this.redInfectedImage = new Texture("redInfected.png");
+        this.blueInfectedImage = new Texture("blueInfected.png");
+        this.blockedCellImage = new Texture("blockedCell.png");
+
+        this.box = new Rectangle(x, y, 700, 700);
+        this.position.set(x, y);
+
+        this.cells = savedField;
+        this.checkedAtackedCells = new HashSet<>();
+    }
+
     private byte[][] getSavedField(byte type){
         ArrayList<byte[]> tempArray = new ArrayList<>();
 

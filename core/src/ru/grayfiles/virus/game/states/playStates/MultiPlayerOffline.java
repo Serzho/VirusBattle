@@ -62,11 +62,38 @@ public class MultiPlayerOffline extends State {
         stage.addActor(actors);
     }
 
+    public MultiPlayerOffline(GameStateManager gsm, byte[][] savedField, int player, int remainMoves){
+        super(gsm);
+
+        this.gsm = gsm;
+
+        camera = new OrthographicCamera();
+        camera.setToOrtho(false, VirusGame.WIDTH, VirusGame.HEIGHT);
+
+        field = new Field(VirusGame.WIDTH / 2 - 700 / 2, (VirusGame.HEIGHT - 700) / 2, savedField);
+
+        currentPlayer = (byte) player;
+        this.remainMoves = (byte) remainMoves;
+
+        quantityPlayers = 2;
+        step = 0;
+
+        quantityMoves = (byte) Math.round(Math.sqrt(field.getFieldSize()) / 10 + 2);
+
+        back = new ImageTextButton("back", skin);
+        back.setPosition(0, VirusGame.HEIGHT - back.getHeight());
+        bkListener();
+        actors.addActor(back);
+
+
+        stage.addActor(actors);
+    }
+
     private void bkListener(){
         back.addListener(new InputListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button){
-                new ConfirmStop(skin, stage, field.getField(), 1, gsm);
+                new ConfirmStop(skin, stage, field.getField(), 1, gsm, currentPlayer, remainMoves);
             }
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {

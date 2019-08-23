@@ -1,6 +1,7 @@
 package ru.grayfiles.virus.game.states.menuStates.popups;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -18,7 +19,7 @@ import ru.grayfiles.virus.game.states.playStates.MultiPlayerOnline;
 
 public class SelectMode {
 
-    public SelectMode(Skin skin, final Stage stage, final GameStateManager gsm) {
+    public SelectMode(final Skin skin, final Stage stage, final GameStateManager gsm) {
         Dialog dialog = new Dialog("Chose mode", skin) {
             public void result(Object obj) {
                 System.out.println("result " + obj);
@@ -32,7 +33,9 @@ public class SelectMode {
             public void touchUp (InputEvent event, float x, float y, int pointer, int button){
                 System.out.println("Multiplayer offline");
                 stage.clear();
-                gsm.set(new MultiPlayerOffline(gsm));
+                FileHandle savedField = Gdx.files.internal("saves/multiplayer/save.txt");
+                if(!savedField.readString().isEmpty())new ConfirmLoadSave(skin, stage, 1, gsm);
+                    else gsm.set(new MultiPlayerOffline(gsm));
             }
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
