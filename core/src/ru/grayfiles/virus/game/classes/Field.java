@@ -32,6 +32,8 @@ public class Field {
     private Rectangle box;
     private Vector2 position = new Vector2();
 
+    private Vector2 lastMove = new Vector2(0, 0);
+
     private byte[][] cells;
     private HashSet<Vector2> checkedAtackedCells;
 
@@ -136,6 +138,9 @@ public class Field {
                     }
             }
         }
+
+        if(isDone)lastMove.set(cellX, cellY);
+
         return isDone;
     }
 
@@ -195,7 +200,7 @@ public class Field {
         boolean isCorrect = false;
         byte tempCell;
 
-        System.out.printf("CURRENT CELL %d %d \n", cellX, cellY);
+        //System.out.printf("CURRENT CELL %d %d \n", cellX, cellY);
 
         for(int i = cellX - 1; i < cellX + 2; i++)
             for(int k = cellY - 1; k < cellY + 2; k++) {
@@ -204,11 +209,11 @@ public class Field {
                 if(tempCell == 4 - player && checkAtackedCell(player, correctIndex(i), correctIndex(k)))
                     isCorrect = true;
                 else if(tempCell == 1 + player) isCorrect = true;
-                System.out.printf("CELL X %d CELL Y %d IS CORRECT NOW %b \n", correctIndex(i), correctIndex(k), isCorrect);
+                //System.out.printf("CELL X %d CELL Y %d IS CORRECT NOW %b \n", correctIndex(i), correctIndex(k), isCorrect);
             }
 
         if(cells[cellX][cellY] == 1 + player || cells[cellX][cellY] > 2){
-            System.out.printf("Incorrect cell %d %d count %d \n", cellX, cellY, cells[cellX][cellY]);
+            //System.out.printf("Incorrect cell %d %d count %d \n", cellX, cellY, cells[cellX][cellY]);
             isCorrect = false;
         }
 
@@ -296,6 +301,21 @@ public class Field {
             }
         }
         batch.end();
+    }
+
+    public boolean revert(){
+        byte cell;
+        if(!lastMove.isZero()) {
+            cell = cells[(int) lastMove.x][(int) lastMove.y];
+            if (cell < 3) cell = 0;
+            else cell -= 2;
+            cells[(int) lastMove.x][(int) lastMove.y] = cell;
+
+            lastMove.set(0,0);
+
+            return true;
+        }
+        return false;
     }
 
     public byte[][] getField(){return cells;}

@@ -3,6 +3,7 @@ package ru.grayfiles.virus.game.states.playStates;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -32,6 +33,7 @@ public class MultiPlayerOffline extends State {
     private GameStateManager gsm;
 
     private ImageTextButton back;
+    private ImageTextButton revert;
 
     private Group actors = new Group();
 
@@ -57,6 +59,11 @@ public class MultiPlayerOffline extends State {
         back.setPosition(0, VirusGame.HEIGHT - back.getHeight());
         bkListener();
         actors.addActor(back);
+
+        revert = new ImageTextButton("revert", skin);
+        revert.setPosition((float) (VirusGame.WIDTH - revert.getWidth() - 10), VirusGame.HEIGHT / 2  - revert.getHeight());
+        rtListener();
+        actors.addActor(revert);
 
 
         stage.addActor(actors);
@@ -102,6 +109,27 @@ public class MultiPlayerOffline extends State {
         });
     }
 
+    private void rtListener(){
+        revert.addListener(new InputListener(){
+            @Override
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                if (field.revert()) {
+                    remainMoves++;
+                    if (remainMoves > 2){
+                        remainMoves = 0;
+                        currentPlayer--;
+                        if (currentPlayer < 0) currentPlayer = (byte) (quantityPlayers - 1);
+
+                    }
+                }
+            }
+            @Override
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+        });
+    }
+
     @Override
     protected void handleInput() {
         if(Gdx.input.justTouched()){
@@ -125,8 +153,8 @@ public class MultiPlayerOffline extends State {
             step++;
             //System.out.printf("Step %d \n", step);
         }
-        //System.out.printf("Current Player %d \n", currentPlayer);
-        //System.out.printf("Remain moves %d \n", remainMoves);
+        System.out.printf("Current Player %d \n", currentPlayer);
+        System.out.printf("Remain moves %d \n", remainMoves);
 
         try {
             Thread.sleep(50);
