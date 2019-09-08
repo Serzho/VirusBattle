@@ -9,8 +9,8 @@ import ru.grayfiles.virus.game.states.GameStateManager;
 import ru.grayfiles.virus.game.states.menuStates.MainMenu;
 
 public class VirusGame extends ApplicationAdapter {
-	public static final int WIDTH = 1920 / 4 * 3;
-	public static final int HEIGHT = 1080 / 4 * 3;
+	public static int WIDTH = 1920;
+	public static int HEIGHT = 1080;
 
 	public static final String TITLE = "VirusGame";
 
@@ -19,6 +19,9 @@ public class VirusGame extends ApplicationAdapter {
 
 	@Override
 	public void create () {
+		if(Gdx.graphics.getWidth() != 0) WIDTH = Gdx.graphics.getWidth();
+		if(Gdx.graphics.getHeight() != 0) HEIGHT = Gdx.graphics.getHeight();
+
 		batch = new SpriteBatch();
 		gsm = new GameStateManager();
 

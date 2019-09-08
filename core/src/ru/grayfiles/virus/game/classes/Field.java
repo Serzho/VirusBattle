@@ -49,7 +49,7 @@ public class Field {
         this.blueInfectedImage = new Texture("blueInfected.png");
         this.blockedCellImage = new Texture("blockedCell.png");
 
-        this.box = new Rectangle(x, y, 700, 700);
+        this.box = new Rectangle(x, y, 1000, 1000);
         this.position.set(x, y);
 
         this.cells = getSavedField(type);
@@ -65,7 +65,7 @@ public class Field {
         this.blueInfectedImage = new Texture("blueInfected.png");
         this.blockedCellImage = new Texture("blockedCell.png");
 
-        this.box = new Rectangle(x, y, 700, 700);
+        this.box = new Rectangle(x, y, 1000, 1000);
         this.position.set(x, y);
 
         this.cells = savedField;
@@ -105,8 +105,8 @@ public class Field {
         //printField();
         if(box.contains(x, y)){
             //System.out.println("Contains");
-            cellX = (int) ((x - box.x) / 70);
-            cellY = (int) ((y - box.y) / 70);
+            cellX = (int) ((x - box.x) / 100);
+            cellY = (int) ((y - box.y) / 100);
             //System.out.printf("cellX %d, cellY %d \n", cellX, cellY);
             switch (cells[correctIndex(cellX)][correctIndex(cellY)]){
                 case -1:
@@ -274,8 +274,8 @@ public class Field {
         int drawX, drawY;
         for(int i = 0; i < cells.length; i++){
             for(int k = 0; k < cells[0].length; k++) {
-                drawX = (int) (box.x + i * 70);
-                drawY = (int) (box.y + k * 70);
+                drawX = (int) (box.x + i * 100);
+                drawY = (int) (box.y + k * 100);
                 switch (cells[i][k]) {
                     case -2:
                         batch.draw(blockedCellImage, drawX, drawY);
