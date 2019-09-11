@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 import java.util.Locale;
 
+import ru.grayfiles.virus.game.Assets;
 import ru.grayfiles.virus.game.states.GameStateManager;
 import ru.grayfiles.virus.game.states.menuStates.MainMenu;
 
@@ -57,7 +58,7 @@ public class ConfirmStop {
             }
         });
 
-        dialog.text("Are you want to save the game?", new Label.LabelStyle(skin.getFont("font"), Color.BLACK));
+        dialog.text("Are you want to save the game?", Assets.labelStyle);
 
         ImageTextButton no = new ImageTextButton("No", skin);
         no.addListener(new InputListener(){
@@ -75,10 +76,21 @@ public class ConfirmStop {
             }
         });
 
+        ImageTextButton cancel = new ImageTextButton("cancel", skin);
+        cancel.addListener(new InputListener(){
+            @Override
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button){
 
+            }
+            @Override
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+        });
 
         dialog.button(yes);
         dialog.button(no);
+        dialog.button(cancel);
         dialog.show(stage);
     }
 

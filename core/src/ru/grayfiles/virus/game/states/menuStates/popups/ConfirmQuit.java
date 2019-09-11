@@ -10,6 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
+import ru.grayfiles.virus.game.Assets;
+
 
 public class ConfirmQuit {
 
@@ -19,7 +21,7 @@ public class ConfirmQuit {
                 System.out.println("result " + obj);
             }
         };
-        dialog.text("Are you sure?", new Label.LabelStyle(skin.getFont("font"), Color.BLACK));
+        dialog.text("Are you sure?", Assets.labelStyle);
         ImageTextButton yes = new ImageTextButton("Yes", skin);
         yes.addListener(new InputListener(){
             @Override

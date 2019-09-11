@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import ru.grayfiles.virus.game.Assets;
 import ru.grayfiles.virus.game.states.GameStateManager;
 import ru.grayfiles.virus.game.states.menuStates.MainMenu;
 
@@ -17,6 +18,8 @@ public class VirusGame extends ApplicationAdapter {
 	private GameStateManager gsm;
 	private SpriteBatch batch;
 
+	public static Assets assets;
+
 	@Override
 	public void create () {
 		if(Gdx.graphics.getWidth() != 0) WIDTH = Gdx.graphics.getWidth();
@@ -24,6 +27,8 @@ public class VirusGame extends ApplicationAdapter {
 
 		batch = new SpriteBatch();
 		gsm = new GameStateManager();
+
+		assets = new Assets();
 
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		gsm.push(new MainMenu(gsm));

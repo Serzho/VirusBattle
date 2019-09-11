@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import ru.grayfiles.virus.game.Assets;
 import ru.grayfiles.virus.game.states.GameStateManager;
 import ru.grayfiles.virus.game.states.playStates.MultiPlayerOffline;
 import ru.grayfiles.virus.game.states.playStates.MultiPlayerOnline;
@@ -28,7 +29,7 @@ class ConfirmLoadSave {
                 System.out.println("result " + obj);
             }
         };
-        dialog.text("Are you want to load save?", new Label.LabelStyle(skin.getFont("font"), Color.BLACK));
+        dialog.text("Are you want to load save?", Assets.labelStyle);
         ImageTextButton yes = new ImageTextButton("Yes", skin);
         yes.addListener(new InputListener(){
             @Override

@@ -8,6 +8,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
+import ru.grayfiles.virus.VirusGame;
+import ru.grayfiles.virus.game.Assets;
+
 public abstract class State {
 
     private OrthographicCamera camera;
@@ -20,7 +23,7 @@ public abstract class State {
         this.gsm = gsm;
         camera = new OrthographicCamera();
         mouse = new Vector3();
-        skin = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
+        skin = VirusGame.assets.skin;
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
     }

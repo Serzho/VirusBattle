@@ -9,8 +9,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 import ru.grayfiles.virus.VirusGame;
+import ru.grayfiles.virus.game.Assets;
 import ru.grayfiles.virus.game.states.GameStateManager;
 import ru.grayfiles.virus.game.states.State;
 import ru.grayfiles.virus.game.states.menuStates.popups.ConfirmQuit;
@@ -25,10 +27,14 @@ public class MainMenu extends State {
     private ImageTextButton settings; //ImageButton
     private ImageTextButton exit;
 
+    private Skin skin;
+
     private Group actors = new Group();
 
     public MainMenu(final GameStateManager gsm) {
         super(gsm);
+
+        skin = Assets.skin;
 
         exit = new ImageTextButton("exit", skin);
         exit.setPosition(Math.round(VirusGame.WIDTH - exit.getWidth()), Math.round(VirusGame.HEIGHT - exit.getHeight()));

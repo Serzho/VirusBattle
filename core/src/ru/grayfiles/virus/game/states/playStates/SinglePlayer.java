@@ -35,7 +35,7 @@ public class SinglePlayer extends State {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, VirusGame.WIDTH, VirusGame.HEIGHT);
 
-        field = new Field(VirusGame.WIDTH / 2 - 700 / 2, (VirusGame.HEIGHT - 700) / 2, (byte) 0);
+        field = new Field(VirusGame.WIDTH / 2 - 1000 / 2, (VirusGame.HEIGHT - 1000) / 2, (byte) 0);
 
         quantityPlayers = 2;
         currentPlayer = 0;

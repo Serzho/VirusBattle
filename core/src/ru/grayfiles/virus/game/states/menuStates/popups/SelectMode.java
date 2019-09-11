@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
+import ru.grayfiles.virus.game.Assets;
 import ru.grayfiles.virus.game.states.GameStateManager;
 import ru.grayfiles.virus.game.states.menuStates.OnlineMenu;
 import ru.grayfiles.virus.game.states.playStates.MultiPlayerOffline;
@@ -25,7 +26,7 @@ public class SelectMode {
                 System.out.println("result " + obj);
             }
         };
-        dialog.text("Please, select mode", new Label.LabelStyle(skin.getFont("font"), Color.BLACK));
+        dialog.text("Please, select mode", Assets.labelStyle);
 
         ImageTextButton offline = new ImageTextButton("offline", skin);
         offline.addListener(new InputListener(){
