@@ -77,7 +77,7 @@ public class MultiPlayerOffline extends State {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, VirusGame.WIDTH, VirusGame.HEIGHT);
 
-        field = new Field(VirusGame.WIDTH / 2 - 700 / 2, (VirusGame.HEIGHT - 700) / 2, savedField);
+        field = new Field(VirusGame.WIDTH / 2 - 1000 / 2, (VirusGame.HEIGHT - 1000) / 2, savedField);
 
         currentPlayer = (byte) player;
         this.remainMoves = (byte) remainMoves;

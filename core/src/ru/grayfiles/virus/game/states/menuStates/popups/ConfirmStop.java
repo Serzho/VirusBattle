@@ -67,7 +67,7 @@ public class ConfirmStop {
                 if(typeGame == 0)path = "saves/singleplayer/save.txt";
                 else path = "saves/multiplayer/save.txt";
                 FileHandle save = Gdx.files.local(path);
-                save.writeString("", false);
+                save.delete();
                 setMenu(gsm, stage);
             }
             @Override
