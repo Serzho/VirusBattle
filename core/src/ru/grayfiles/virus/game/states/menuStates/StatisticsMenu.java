@@ -42,7 +42,7 @@ public class StatisticsMenu extends State {
 
         stage.addActor(actors);
 
-        adress = new TextField(" ", skin);
+        //adress = new TextField(" ", skin);
         ArrayList<String> addresses = new ArrayList<String>();
         try {
             Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
@@ -58,12 +58,12 @@ public class StatisticsMenu extends State {
             e.printStackTrace();
         }
 
-        adress.setMessageText(String.valueOf(addresses));
-        adress.setPosition(0,0);
-        actors.addActor(adress);
+        //adress.setMessageText(String.valueOf(addresses));
+        //adress.setPosition(0,0);
+        //actors.addActor(adress);
 
         stage.addActor(actors);
-        System.out.println(addresses);
+        //System.out.println(addresses);
     }
 
     private void bkListener(){

@@ -92,6 +92,10 @@ public class MultiPlayerOffline extends State {
         bkListener();
         actors.addActor(back);
 
+        revert = new ImageTextButton("revert", skin);
+        revert.setPosition((VirusGame.WIDTH - revert.getWidth() - 10), VirusGame.HEIGHT / 2f  - revert.getHeight());
+        rtListener();
+        actors.addActor(revert);
 
         stage.addActor(actors);
     }
