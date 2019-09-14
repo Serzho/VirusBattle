@@ -34,7 +34,7 @@ public class SelectMode {
             public void touchUp (InputEvent event, float x, float y, int pointer, int button){
                 System.out.println("Multiplayer offline");
                 stage.clear();
-                FileHandle savedField = Gdx.files.internal("saves/multiplayer/save.txt");
+                FileHandle savedField = Gdx.files.local("saves/multiplayer/save.txt");
                 System.out.printf("Exists %b \n", savedField.exists());
                 if(!savedField.readString().isEmpty())new ConfirmLoadSave(skin, stage, 1, gsm);
                     else gsm.set(new MultiPlayerOffline(gsm));

@@ -36,7 +36,7 @@ class ConfirmLoadSave {
             public void touchUp (InputEvent event, float x, float y, int pointer, int button){
                 if(type == 0)path = "saves/singleplayer/save.txt";
                 else path = "saves/multiplayer/save.txt";
-                FileHandle savedField = Gdx.files.internal(path);
+                FileHandle savedField = Gdx.files.local(path);
                 ArrayList<byte[]> tempArray = new ArrayList<>();
 
                 for(String line : savedField.readString().split("\r?\n"))tempArray.add(line.getBytes());
