@@ -117,6 +117,7 @@ public class MultiPlayerOffline extends State {
         revert.addListener(new InputListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                if(step > 4)
                 if (field.revert()) {
                     remainMoves++;
                     if (remainMoves > 2){

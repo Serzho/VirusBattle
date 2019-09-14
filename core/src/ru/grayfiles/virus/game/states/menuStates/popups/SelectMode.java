@@ -35,7 +35,8 @@ public class SelectMode {
                 System.out.println("Multiplayer offline");
                 stage.clear();
                 FileHandle savedField = Gdx.files.internal("saves/multiplayer/save.txt");
-                if(savedField.exists())new ConfirmLoadSave(skin, stage, 1, gsm);
+                System.out.printf("Exists %b \n", savedField.exists());
+                if(!savedField.readString().isEmpty())new ConfirmLoadSave(skin, stage, 1, gsm);
                     else gsm.set(new MultiPlayerOffline(gsm));
             }
             @Override

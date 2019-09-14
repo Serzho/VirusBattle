@@ -1,4 +1,4 @@
-#Tue Aug 13 05:22:31 MSK 2019
+#Sat Sep 14 03:01:56 MSK 2019
 base.0=C\:\\Users\\kvos\\Desktop\\Java\\VirusBattle\\android\\build\\intermediates\\transforms\\dexMerger\\debug\\0
 path.0=classes.dex
 renamed.0=classes.dex

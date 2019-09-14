@@ -35,6 +35,7 @@ public class ConfirmStop {
             public void touchUp (InputEvent event, float x, float y, int pointer, int button){
                 if(typeGame == 0)path = "saves/singleplayer/save.txt";
                 else path = "saves/multiplayer/save.txt";
+
                 FileHandle save = Gdx.files.local(path);
 
                 StringBuilder tempStr = new StringBuilder();
@@ -67,7 +68,7 @@ public class ConfirmStop {
                 if(typeGame == 0)path = "saves/singleplayer/save.txt";
                 else path = "saves/multiplayer/save.txt";
                 FileHandle save = Gdx.files.local(path);
-                save.delete();
+                save.writeString("", false);
                 setMenu(gsm, stage);
             }
             @Override

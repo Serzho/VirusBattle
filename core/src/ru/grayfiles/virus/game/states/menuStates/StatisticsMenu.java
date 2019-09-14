@@ -46,6 +46,7 @@ public class StatisticsMenu extends State {
         ArrayList<String> addresses = new ArrayList<String>();
         try {
             Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
+            if(!Collections.list(interfaces).isEmpty())
             for(NetworkInterface ni : Collections.list(interfaces)){
                 for(InetAddress address : Collections.list(ni.getInetAddresses()))
                 {

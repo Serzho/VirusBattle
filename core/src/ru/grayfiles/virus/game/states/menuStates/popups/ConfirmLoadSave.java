@@ -73,7 +73,7 @@ class ConfirmLoadSave {
                 if(type == 0)path = "saves/singleplayer/save.txt";
                 else path = "saves/multiplayer/save.txt";
                 FileHandle save = Gdx.files.local(path);
-                save.delete();
+                save.writeString("", false);
 
                 gsm.set(new MultiPlayerOffline(gsm));
             }
