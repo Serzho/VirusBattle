@@ -42,21 +42,24 @@ public class StatisticsMenu extends State {
 
         stage.addActor(actors);
 
-        //adress = new TextField(" ", skin);
-        ArrayList<String> addresses = new ArrayList<String>();
         try {
-            Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
-            if(!Collections.list(interfaces).isEmpty())
-            for(NetworkInterface ni : Collections.list(interfaces)){
-                for(InetAddress address : Collections.list(ni.getInetAddresses()))
-                {
-                    if(address instanceof Inet4Address){
-                        addresses.add(address.getHostAddress());
+            //adress = new TextField(" ", skin);
+            ArrayList<String> addresses = new ArrayList<>();
+            try {
+                Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
+                if (!Collections.list(interfaces).isEmpty())
+                    for (NetworkInterface ni : Collections.list(interfaces)) {
+                        for (InetAddress address : Collections.list(ni.getInetAddresses())) {
+                            if (address instanceof Inet4Address) {
+                                addresses.add(address.getHostAddress());
+                            }
+                        }
                     }
-                }
+            } catch (SocketException e) {
+                e.printStackTrace();
             }
-        } catch (SocketException e) {
-            e.printStackTrace();
+        }catch (Throwable e){
+            System.out.println(e.getLocalizedMessage());
         }
 
         //adress.setMessageText(String.valueOf(addresses));

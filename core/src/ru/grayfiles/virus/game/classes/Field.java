@@ -233,8 +233,8 @@ public class Field {
             checkedAtackedCells.add(new Vector2(cellX, cellY));
             System.out.printf("Checking %d %d \n", cellX, cellY);
 
-            for (int i = correctIndex(cellX - 1); i < correctIndex(cellX + 2); i++)
-                for (int k = correctIndex(cellY - 1); k < correctIndex(cellY + 2); k++) {
+            for (int i = correctIndex(cellX - 1); i <= correctIndex(cellX + 2); i++)
+                for (int k = correctIndex(cellY - 1); k <= correctIndex(cellY + 2); k++) {
                     if (cells[i][k] == 1 + player) {
                         isConnected = true;
                     }
