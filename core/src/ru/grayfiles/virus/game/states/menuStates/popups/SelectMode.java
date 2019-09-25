@@ -3,14 +3,19 @@ package ru.grayfiles.virus.game.states.menuStates.popups;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
+import ru.grayfiles.virus.VirusGame;
 import ru.grayfiles.virus.game.Assets;
 import ru.grayfiles.virus.game.states.GameStateManager;
 import ru.grayfiles.virus.game.states.menuStates.OnlineMenu;
@@ -61,7 +66,10 @@ public class SelectMode {
         });
         dialog.button(online);
 
-        dialog.button("Back", false);
+        ImageButton back = new ImageButton(new TextureRegionDrawable(new TextureRegion(skin.get("back", Texture.class))));
+        back.setHeight(VirusGame.HEIGHT/10f);
+        back.setWidth(VirusGame.HEIGHT/10f);
+        dialog.button(back);
         dialog.show(stage);
         /*                System.out.println("Exit Mainmenu");
                 stage.clear();

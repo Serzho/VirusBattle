@@ -4,6 +4,15 @@ size: 1024,1024
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
+exitbutton
+  rotate: false
+  xy: 65, 0
+  size: 178, 176
+  split: 49, 48, 52, 51
+  pad: 28, 27, 7, 7
+  orig: 297, 106
+  offset: 0, 0
+  index: -1
 button
   rotate: false
   xy: 1, 508

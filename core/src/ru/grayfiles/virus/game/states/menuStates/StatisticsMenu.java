@@ -2,15 +2,19 @@ package ru.grayfiles.virus.game.states.menuStates;
 
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import java.net.Inet4Address;
@@ -27,7 +31,7 @@ import ru.grayfiles.virus.game.states.State;
 
 public class StatisticsMenu extends State {
 
-    private ImageTextButton back;
+    private ImageButton back;
 
     private Group actors = new Group();
     private TextField adress;
@@ -35,32 +39,16 @@ public class StatisticsMenu extends State {
     StatisticsMenu(final GameStateManager gsm) {
         super(gsm);
 
-        back = new ImageTextButton("back", skin);
+        back = new ImageButton(new TextureRegionDrawable(new TextureRegion(skin.get("back", Texture.class))));
+        back.setHeight(VirusGame.HEIGHT/10f);
+        back.setWidth(VirusGame.HEIGHT/10f);
         back.setPosition(Math.round(VirusGame.WIDTH - back.getWidth()), Math.round(VirusGame.HEIGHT - back.getHeight()));
         bkListener();
         actors.addActor(back);
 
         stage.addActor(actors);
 
-        try {
-            //adress = new TextField(" ", skin);
-            ArrayList<String> addresses = new ArrayList<>();
-            try {
-                Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
-                if (!Collections.list(interfaces).isEmpty())
-                    for (NetworkInterface ni : Collections.list(interfaces)) {
-                        for (InetAddress address : Collections.list(ni.getInetAddresses())) {
-                            if (address instanceof Inet4Address) {
-                                addresses.add(address.getHostAddress());
-                            }
-                        }
-                    }
-            } catch (SocketException e) {
-                e.printStackTrace();
-            }
-        }catch (Throwable e){
-            System.out.println(e.getLocalizedMessage());
-        }
+        //System.out.println(Gdx.net.);
 
         //adress.setMessageText(String.valueOf(addresses));
         //adress.setPosition(0,0);

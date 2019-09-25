@@ -3,17 +3,22 @@ package ru.grayfiles.virus.game.states.menuStates.popups;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import java.util.ArrayList;
 import java.util.Locale;
 
+import ru.grayfiles.virus.VirusGame;
 import ru.grayfiles.virus.game.Assets;
 import ru.grayfiles.virus.game.states.GameStateManager;
 import ru.grayfiles.virus.game.states.playStates.MultiPlayerOffline;
@@ -30,7 +35,9 @@ class ConfirmLoadSave {
             }
         };
         dialog.text("Are you want to load save?", Assets.labelStyle);
-        ImageTextButton yes = new ImageTextButton("Yes", skin);
+        ImageButton yes = new ImageButton(new TextureRegionDrawable(new TextureRegion(skin.get("accept", Texture.class))));
+        yes.setHeight(VirusGame.HEIGHT/8f);
+        yes.setWidth(VirusGame.HEIGHT/8f);
         yes.addListener(new InputListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button){
@@ -65,7 +72,9 @@ class ConfirmLoadSave {
         });
         dialog.button(yes);
 
-        ImageTextButton no = new ImageTextButton("No", skin);
+        ImageButton no = new ImageButton(new TextureRegionDrawable(new TextureRegion(skin.get("decline", Texture.class))));
+        no.setHeight(VirusGame.HEIGHT/40f);
+        no.setWidth(VirusGame.HEIGHT/40f);
 
         no.addListener(new InputListener(){
             @Override

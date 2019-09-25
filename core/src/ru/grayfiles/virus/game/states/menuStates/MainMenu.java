@@ -1,7 +1,9 @@
 package ru.grayfiles.virus.game.states.menuStates;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -10,6 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import ru.grayfiles.virus.VirusGame;
 import ru.grayfiles.virus.game.Assets;
@@ -23,9 +27,9 @@ public class MainMenu extends State {
     private ImageTextButton singlePlayer;
     private ImageTextButton multiPlayer;
 
-    private ImageTextButton statistics; //ImageButton
-    private ImageTextButton settings; //ImageButton
-    private ImageTextButton exit;
+    private ImageButton statistics; //ImageButton
+    private ImageButton settings; //ImageButton
+    private ImageButton exit;
 
     private Skin skin;
 
@@ -36,18 +40,24 @@ public class MainMenu extends State {
 
         skin = Assets.skin;
 
-        exit = new ImageTextButton("exit", skin);
+        exit = new ImageButton(new TextureRegionDrawable(new TextureRegion(skin.get("exit", Texture.class))));
+        exit.setHeight(VirusGame.HEIGHT/8f);
+        exit.setWidth(VirusGame.HEIGHT/8f);
         exit.setPosition(Math.round(VirusGame.WIDTH - exit.getWidth()), Math.round(VirusGame.HEIGHT - exit.getHeight()));
         exListener();
         actors.addActor(exit);
 
-        settings = new ImageTextButton("settings", skin);
+        settings = new ImageButton(new TextureRegionDrawable(new TextureRegion(skin.get("settings", Texture.class))));
+        settings.setHeight(VirusGame.HEIGHT/8f);
+        settings.setWidth(VirusGame.HEIGHT/8f);
         settings.setPosition(0, Math.round(VirusGame.HEIGHT - settings.getHeight()));
         setListener();
         actors.addActor(settings);
 
-        statistics = new ImageTextButton("statistics", skin);
-        statistics.setPosition(settings.getWidth() + 5, Math.round(VirusGame.HEIGHT - statistics.getHeight()));
+        statistics = new ImageButton(new TextureRegionDrawable(new TextureRegion(skin.get("statistics", Texture.class))));
+        statistics.setHeight(VirusGame.HEIGHT/8f);
+        statistics.setWidth(VirusGame.HEIGHT/8f);
+        statistics.setPosition(settings.getWidth() + 50, Math.round(VirusGame.HEIGHT - statistics.getHeight()));
         statListener();
         actors.addActor(statistics);
 

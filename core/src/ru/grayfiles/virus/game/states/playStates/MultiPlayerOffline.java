@@ -2,13 +2,17 @@ package ru.grayfiles.virus.game.states.playStates;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import ru.grayfiles.virus.VirusGame;
 import ru.grayfiles.virus.game.classes.Field;
@@ -32,7 +36,7 @@ public class MultiPlayerOffline extends State {
 
     private GameStateManager gsm;
 
-    private ImageTextButton back;
+    private ImageButton back;
     private ImageTextButton revert;
 
     private Group actors = new Group();
@@ -55,7 +59,9 @@ public class MultiPlayerOffline extends State {
         remainMoves = quantityMoves;
         System.out.printf("Quantity moves = %d \n", quantityMoves);
 
-        back = new ImageTextButton("back", skin);
+        back = new ImageButton(new TextureRegionDrawable(new TextureRegion(skin.get("back", Texture.class))));
+        back.setHeight(VirusGame.HEIGHT/10f);
+        back.setWidth(VirusGame.HEIGHT/10f);
         back.setPosition(0, VirusGame.HEIGHT - back.getHeight());
         bkListener();
         actors.addActor(back);
@@ -87,7 +93,9 @@ public class MultiPlayerOffline extends State {
 
         quantityMoves = (byte) Math.round(Math.sqrt(field.getFieldSize()) / 10 + 2);
 
-        back = new ImageTextButton("back", skin);
+        back = new ImageButton(new TextureRegionDrawable(new TextureRegion(skin.get("back", Texture.class))));
+        back.setHeight(VirusGame.HEIGHT/40f);
+        back.setWidth(VirusGame.HEIGHT/40f);
         back.setPosition(0, VirusGame.HEIGHT - back.getHeight());
         bkListener();
         actors.addActor(back);
