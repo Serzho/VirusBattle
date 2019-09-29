@@ -92,8 +92,8 @@ public class TwoPlayers extends State {
         quantityMoves = (byte) Math.round(Math.sqrt(field.getFieldSize()) / 10 + 2);
 
         back = new ImageButton(new TextureRegionDrawable(new TextureRegion(skin.get("back", Texture.class))));
-        back.setHeight(VirusGame.HEIGHT/40f);
-        back.setWidth(VirusGame.HEIGHT/40f);
+        back.setHeight(VirusGame.HEIGHT/10f);
+        back.setWidth(VirusGame.HEIGHT/10f);
         back.setPosition(0, VirusGame.HEIGHT - back.getHeight());
         bkListener();
         actors.addActor(back);

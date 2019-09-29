@@ -22,6 +22,8 @@ public class MainMenu extends State {
 
     private ImageTextButton singlePlayer;
     private ImageTextButton multiPlayer;
+    private ImageTextButton help; //ImageButton
+
 
     private ImageButton statistics; //ImageButton
     private ImageButton settings; //ImageButton
@@ -67,8 +69,28 @@ public class MainMenu extends State {
         mpListener();
         actors.addActor(multiPlayer);
 
+        help = new ImageTextButton("help", skin);
+        help.setPosition(settings.getWidth() + statistics.getWidth() + 50, Math.round(VirusGame.HEIGHT - statistics.getHeight()));
+        hpListener();
+        actors.addActor(help);
+
         stage.addActor(actors);
 
+    }
+
+    private void hpListener(){
+        help.addListener(new InputListener(){
+            @Override
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button){
+                System.out.println("Help");
+                stage.clear();
+                gsm.set(new HelpMenu(gsm));
+            }
+            @Override
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+        });
     }
 
     private void exListener(){
