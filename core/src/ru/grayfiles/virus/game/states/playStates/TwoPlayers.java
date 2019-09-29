@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -18,10 +17,9 @@ import ru.grayfiles.virus.VirusGame;
 import ru.grayfiles.virus.game.classes.Field;
 import ru.grayfiles.virus.game.states.GameStateManager;
 import ru.grayfiles.virus.game.states.State;
-import ru.grayfiles.virus.game.states.menuStates.MainMenu;
 import ru.grayfiles.virus.game.states.menuStates.popups.ConfirmStop;
 
-public class MultiPlayerOffline extends State {
+public class TwoPlayers extends State {
 
     private Field field;
     private OrthographicCamera camera;
@@ -41,7 +39,7 @@ public class MultiPlayerOffline extends State {
 
     private Group actors = new Group();
 
-    public MultiPlayerOffline(GameStateManager gsm) {
+    public TwoPlayers(GameStateManager gsm) {
         super(gsm);
 
         this.gsm = gsm;
@@ -75,7 +73,7 @@ public class MultiPlayerOffline extends State {
         stage.addActor(actors);
     }
 
-    public MultiPlayerOffline(GameStateManager gsm, byte[][] savedField, int player, int remainMoves){
+    public TwoPlayers(GameStateManager gsm, byte[][] savedField, int player, int remainMoves){
         super(gsm);
 
         this.gsm = gsm;
@@ -150,7 +148,7 @@ public class MultiPlayerOffline extends State {
             touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
             camera.unproject(touchPos);
             step(touchPos);
-            if(field.checkWin(step < quantityMoves * 3) != -1) gsm.set(new MultiPlayerOffline(gsm));
+            if(field.checkWin(step < quantityMoves * 3) != -1) gsm.set(new TwoPlayers(gsm));
         }
     }
 

@@ -1,22 +1,18 @@
 package ru.grayfiles.virus.game.states.menuStates;
 
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import ru.grayfiles.virus.VirusGame;
 import ru.grayfiles.virus.game.states.GameStateManager;
 import ru.grayfiles.virus.game.states.State;
-import ru.grayfiles.virus.game.states.playStates.SinglePlayer;
+import ru.grayfiles.virus.game.states.playStates.OnePlayer;
 
 public class SinglePlayerMenu extends State {
 
@@ -53,7 +49,7 @@ public class SinglePlayerMenu extends State {
             public void touchUp (InputEvent event, float x, float y, int pointer, int button){
                 System.out.println("play");
                 stage.clear();
-                gsm.set(new SinglePlayer(gsm, setDifficult.getSelectedIndex()));
+                gsm.set(new OnePlayer(gsm, setDifficult.getSelectedIndex()));
             }
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {

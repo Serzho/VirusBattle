@@ -1,18 +1,14 @@
 package ru.grayfiles.virus.game.states.menuStates;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import ru.grayfiles.virus.VirusGame;
@@ -20,7 +16,7 @@ import ru.grayfiles.virus.game.Assets;
 import ru.grayfiles.virus.game.states.GameStateManager;
 import ru.grayfiles.virus.game.states.State;
 import ru.grayfiles.virus.game.states.menuStates.popups.ConfirmQuit;
-import ru.grayfiles.virus.game.states.menuStates.popups.SelectMode;
+import ru.grayfiles.virus.game.states.menuStates.popups.SelectMap;
 
 public class MainMenu extends State {
 
@@ -137,7 +133,7 @@ public class MainMenu extends State {
         multiPlayer.addListener(new InputListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button){
-                new SelectMode(skin, stage, gsm);
+                new SelectMap(skin, stage, gsm, (byte) 1);
             }
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {

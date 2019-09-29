@@ -10,7 +10,7 @@ import ru.grayfiles.virus.game.classes.Field;
 import ru.grayfiles.virus.game.states.GameStateManager;
 import ru.grayfiles.virus.game.states.State;
 
-public class SinglePlayer extends State {
+public class OnePlayer extends State {
 
     private Field field;
     private OrthographicCamera camera;
@@ -26,7 +26,7 @@ public class SinglePlayer extends State {
 
     private GameStateManager gsm;
 
-    public SinglePlayer(GameStateManager gsm, int difficult) {
+    public OnePlayer(GameStateManager gsm, int difficult) {
         super(gsm);
 
         this.difficult = difficult;
