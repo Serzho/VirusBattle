@@ -1,6 +1,8 @@
 package ru.grayfiles.virus.game.states.menuStates;
 
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -12,11 +14,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
+import java.util.ArrayList;
+import java.util.Locale;
+
 import ru.grayfiles.virus.VirusGame;
 import ru.grayfiles.virus.game.states.GameStateManager;
 import ru.grayfiles.virus.game.states.State;
-import ru.grayfiles.virus.game.states.menuStates.popups.ConfirmStop;
-import ru.grayfiles.virus.game.states.playStates.OnePlayer;
+import ru.grayfiles.virus.game.states.menuStates.popups.ConfirmLoadSave;
 
 public class SinglePlayerMenu extends State {
 
@@ -26,6 +30,7 @@ public class SinglePlayerMenu extends State {
     private ImageTextButton play;
     private ImageButton back;
     private SelectBox<String> setDifficult;
+    private SelectBox<Object> setMap;
 
     private Group actors = new Group();
 
@@ -52,6 +57,24 @@ public class SinglePlayerMenu extends State {
         bkListener();
         actors.addActor(back);
 
+        ArrayList<String> maps = new ArrayList<>();
+        maps.add("Standard");
+
+        for(int i = 1; i < 50; i++){
+            String path = String.format(Locale.US, "fields/%d.txt", i);
+            //for(FileHandle f : Gdx.files.local("fields").list()) System.out.println(f.name());
+            FileHandle savedField = Gdx.files.internal(path);
+            if(savedField.exists())maps.add("user" + savedField.name());
+        }
+
+        setMap = new SelectBox<>(skin);
+        setMap.setItems(maps.toArray());
+        setMap.setHeight(VirusGame.HEIGHT/10f);
+        setMap.setWidth(VirusGame.HEIGHT/10f);
+        setMap.setPosition(Math.round(VirusGame.WIDTH / 2.0 - setMap.getWidth() / 2.0),setDifficult.getY() + 20 + setMap.getHeight());
+
+        actors.addActor(setMap);
+
         stage.addActor(actors);
     }
 
@@ -73,8 +96,7 @@ public class SinglePlayerMenu extends State {
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button){
                 System.out.println("play");
-                stage.clear();
-                gsm.set(new OnePlayer(gsm, setDifficult.getSelectedIndex()));
+                new ConfirmLoadSave(skin, stage, 0, gsm, setDifficult.getSelectedIndex(), setMap.getSelectedIndex());
             }
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {

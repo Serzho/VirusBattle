@@ -17,14 +17,15 @@ import java.util.ArrayList;
 import ru.grayfiles.virus.VirusGame;
 import ru.grayfiles.virus.game.Assets;
 import ru.grayfiles.virus.game.states.GameStateManager;
+import ru.grayfiles.virus.game.states.playStates.OnePlayer;
 import ru.grayfiles.virus.game.states.playStates.TwoPlayers;
 
-class ConfirmLoadSave {
+public class ConfirmLoadSave {
 
     private String path;//
 
-    ConfirmLoadSave(Skin skin, final Stage stage, final int type, final GameStateManager gsm) {
-        Dialog dialog = new Dialog("Load Save", skin) {
+    public ConfirmLoadSave(Skin skin, final Stage stage, final int type, final GameStateManager gsm, final int difficult, final int map) {
+        final Dialog dialog = new Dialog("Load Save", skin) {
             public void result(Object obj) {
                 System.out.println("result " + obj);
             }
@@ -67,19 +68,27 @@ class ConfirmLoadSave {
         });
         dialog.button(yes);
 
-        ImageButton no = new ImageButton(new TextureRegionDrawable(new TextureRegion(skin.get("decline", Texture.class))));
+        final ImageButton no = new ImageButton(new TextureRegionDrawable(new TextureRegion(skin.get("decline", Texture.class))));
         no.setHeight(VirusGame.HEIGHT/40f);
         no.setWidth(VirusGame.HEIGHT/40f);
 
         no.addListener(new InputListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button){
-                if(type == 0)path = "saves/singleplayer/save.txt";
-                else path = "saves/multiplayer/save.txt";
-                FileHandle save = Gdx.files.local(path);
-                save.writeString("", false);
+                if(type == 0){
+                    path = "saves/singleplayer/save.txt";
+                    FileHandle save = Gdx.files.local(path);
+                    save.writeString("", false);
 
-                gsm.set(new TwoPlayers(gsm));
+                    gsm.set(new OnePlayer(gsm, difficult, map));
+                }
+                else {
+                    path = "saves/multiplayer/save.txt";
+                    FileHandle save = Gdx.files.local(path);
+                    save.writeString("", false);
+
+                    gsm.set(new TwoPlayers(gsm, map));
+                }
             }
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {

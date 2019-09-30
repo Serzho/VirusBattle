@@ -17,6 +17,7 @@ import ru.grayfiles.virus.VirusGame;
 import ru.grayfiles.virus.game.classes.Field;
 import ru.grayfiles.virus.game.states.GameStateManager;
 import ru.grayfiles.virus.game.states.State;
+import ru.grayfiles.virus.game.states.menuStates.MainMenu;
 import ru.grayfiles.virus.game.states.menuStates.popups.ConfirmStop;
 
 public class TwoPlayers extends State {
@@ -39,7 +40,7 @@ public class TwoPlayers extends State {
 
     private Group actors = new Group();
 
-    public TwoPlayers(GameStateManager gsm) {
+    public TwoPlayers(GameStateManager gsm, int map) {
         super(gsm);
 
         this.gsm = gsm;
@@ -148,7 +149,7 @@ public class TwoPlayers extends State {
             touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
             camera.unproject(touchPos);
             step(touchPos);
-            if(field.checkWin(step < quantityMoves * 3) != -1) gsm.set(new TwoPlayers(gsm));
+            if(field.checkWin(step < quantityMoves * 3) != -1) gsm.set(new MainMenu(gsm));
         }
     }
 

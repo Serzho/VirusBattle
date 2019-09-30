@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -18,10 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
-
-import javax.swing.JDialog;
 
 import ru.grayfiles.virus.VirusGame;
 import ru.grayfiles.virus.game.Assets;
@@ -31,10 +27,10 @@ import ru.grayfiles.virus.game.states.playStates.TwoPlayers;
 
 public class SelectMap {
 
-    private SelectBox setMap;
+    private SelectBox<Object> setMap;
 
-    public SelectMap(final Skin skin, final Stage stage, final GameStateManager gsm, final byte type) {
-        Dialog dialog = new Dialog("Chose mode", skin) {
+    public SelectMap(final Skin skin, final Stage stage, final GameStateManager gsm) {
+        final Dialog dialog = new Dialog("Chose mode", skin) {
             public void result(Object obj) {
                 System.out.println("result " + obj);
             }
@@ -42,7 +38,7 @@ public class SelectMap {
 
         Table table = new Table();
 
-        ArrayList maps = new ArrayList<String>();
+        ArrayList<String> maps = new ArrayList<>();
         maps.add("Standard");
 
         for(int i = 1; i < 50; i++){
@@ -93,16 +89,13 @@ public class SelectMap {
         play.addListener(new InputListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button){
-                if(type == 1) {
                     System.out.println("Multiplayer offline");
                     stage.clear();
                     FileHandle savedField = Gdx.files.local("saves/multiplayer/save.txt");
                     System.out.printf("Exists %b \n", savedField.exists());
                     if (!savedField.readString().isEmpty())
-                        new ConfirmLoadSave(skin, stage, 1, gsm);
-                    else gsm.set(new TwoPlayers(gsm));
-                }
-                else; //TODO
+                        new ConfirmLoadSave(skin, stage, 1, gsm, 0, setMap.getSelectedIndex());
+                    else gsm.set(new TwoPlayers(gsm, setMap.getSelectedIndex()));
             }
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -118,6 +111,16 @@ public class SelectMap {
         ImageButton back = new ImageButton(new TextureRegionDrawable(new TextureRegion(skin.get("back", Texture.class))));
         back.setHeight(VirusGame.HEIGHT/10f);
         back.setWidth(VirusGame.HEIGHT/10f);
+        back.addListener(new InputListener(){
+            @Override
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button){
+                dialog.hide();
+            }
+            @Override
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+        });
         //dialog.button(back);
         table.add(back);
 

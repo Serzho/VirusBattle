@@ -155,7 +155,7 @@ public class MainMenu extends State {
         multiPlayer.addListener(new InputListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button){
-                new SelectMap(skin, stage, gsm, (byte) 1);
+                new SelectMap(skin, stage, gsm);
             }
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {

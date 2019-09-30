@@ -26,7 +26,7 @@ public class OnePlayer extends State {
 
     private GameStateManager gsm;
 
-    public OnePlayer(GameStateManager gsm, int difficult) {
+    public OnePlayer(GameStateManager gsm, int difficult, int map) {
         super(gsm);
 
         this.difficult = difficult;
