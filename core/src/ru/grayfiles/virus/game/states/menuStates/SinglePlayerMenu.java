@@ -21,6 +21,8 @@ import ru.grayfiles.virus.VirusGame;
 import ru.grayfiles.virus.game.states.GameStateManager;
 import ru.grayfiles.virus.game.states.State;
 import ru.grayfiles.virus.game.states.menuStates.popups.ConfirmLoadSave;
+import ru.grayfiles.virus.game.states.playStates.OnePlayer;
+import ru.grayfiles.virus.game.states.playStates.TwoPlayers;
 
 public class SinglePlayerMenu extends State {
 
@@ -70,7 +72,7 @@ public class SinglePlayerMenu extends State {
         setMap = new SelectBox<>(skin);
         setMap.setItems(maps.toArray());
         setMap.setHeight(VirusGame.HEIGHT/10f);
-        setMap.setWidth(VirusGame.HEIGHT/10f);
+        setMap.setWidth(VirusGame.WIDTH / 4f);
         setMap.setPosition(Math.round(VirusGame.WIDTH / 2.0 - setMap.getWidth() / 2.0),setDifficult.getY() + 20 + setMap.getHeight());
 
         actors.addActor(setMap);
@@ -95,8 +97,13 @@ public class SinglePlayerMenu extends State {
         play.addListener(new InputListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button){
-                System.out.println("play");
-                new ConfirmLoadSave(skin, stage, 0, gsm, setDifficult.getSelectedIndex(), setMap.getSelectedIndex());
+                System.out.println("singleplayer");
+                stage.clear();
+                FileHandle savedField = Gdx.files.local("saves/singleplayer/save.txt");
+                System.out.printf("Exists %b \n", savedField.exists());
+                if (!savedField.readString().isEmpty())
+                    new ConfirmLoadSave(skin, stage, 0, gsm, setDifficult.getSelectedIndex(), setMap.getSelectedIndex());
+                else gsm.set(new OnePlayer(gsm,setDifficult.getSelectedIndex() ,setMap.getSelectedIndex()));
             }
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {

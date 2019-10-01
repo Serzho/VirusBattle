@@ -96,17 +96,24 @@ public class Field {
         return tempArray1;
     }
 
-    public boolean step(byte player, float x, float y, boolean isFirstMove){
+    public boolean step(byte player, float x, float y, boolean isFirstMove, byte type){
         boolean isDone = false;
 
         checkedAtackedCells.clear();
 
         //System.out.printf("player %d x %f y %f", player, x, y);
         //printField();
-        if(box.contains(x, y)){
+
+        if(box.contains(x, y) || type == 0){
             //System.out.println("Contains");
-            cellX = (int) ((x - box.x) / 100);
-            cellY = (int) ((y - box.y) / 100);
+            if(type == 1) {
+                cellX = (int) ((x - box.x) / 100);
+                cellY = (int) ((y - box.y) / 100);
+            }
+            else{
+                cellX = (int) x;
+                cellY = (int) y;
+            }
             //System.out.printf("cellX %d, cellY %d \n", cellX, cellY);
             switch (cells[correctIndex(cellX)][correctIndex(cellY)]){
                 case -1:

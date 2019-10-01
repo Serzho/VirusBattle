@@ -155,7 +155,7 @@ public class TwoPlayers extends State {
 
     private void step(Vector3 touchPos){
         System.out.printf("STEP NUBMER %d \n", step);
-        if(field.step(currentPlayer, touchPos.x, touchPos.y, remainMoves.equals(quantityMoves))) {
+        if(field.step(currentPlayer, touchPos.x, touchPos.y, remainMoves.equals(quantityMoves), (byte) 1)) {
             if (remainMoves > 0) remainMoves--;
             else {
                 remainMoves = quantityMoves;
