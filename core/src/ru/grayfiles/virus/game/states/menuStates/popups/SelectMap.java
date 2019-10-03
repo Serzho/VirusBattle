@@ -93,9 +93,15 @@ public class SelectMap {
                     stage.clear();
                     FileHandle savedField = Gdx.files.local("saves/multiplayer/save.txt");
                     System.out.printf("Exists %b \n", savedField.exists());
-                    if (!savedField.readString().isEmpty())
-                        new ConfirmLoadSave(skin, stage, 1, gsm, 0, setMap.getSelectedIndex());
-                    else gsm.set(new TwoPlayers(gsm, setMap.getSelectedIndex()));
+                    if(savedField.exists()) {
+                        if (!savedField.readString().isEmpty())
+                            new ConfirmLoadSave(skin, stage, 1, gsm, 0, setMap.getSelectedIndex());
+                        else gsm.set(new TwoPlayers(gsm, setMap.getSelectedIndex()));
+                    }
+                    else{
+                    savedField.writeString("", false);
+                    gsm.set(new TwoPlayers(gsm, setMap.getSelectedIndex()));
+                }
             }
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {

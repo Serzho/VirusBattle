@@ -101,9 +101,16 @@ public class SinglePlayerMenu extends State {
                 stage.clear();
                 FileHandle savedField = Gdx.files.local("saves/singleplayer/save.txt");
                 System.out.printf("Exists %b \n", savedField.exists());
-                if (!savedField.readString().isEmpty())
-                    new ConfirmLoadSave(skin, stage, 0, gsm, setDifficult.getSelectedIndex(), setMap.getSelectedIndex());
-                else gsm.set(new OnePlayer(gsm,setDifficult.getSelectedIndex() ,setMap.getSelectedIndex()));
+                if(savedField.exists()){
+                    if (!savedField.readString().isEmpty())
+                        new ConfirmLoadSave(skin, stage, 0, gsm, setDifficult.getSelectedIndex(), setMap.getSelectedIndex());
+                    else gsm.set(new OnePlayer(gsm,setDifficult.getSelectedIndex() ,setMap.getSelectedIndex()));
+                }
+                else{
+                    savedField.writeString("", false);
+                    gsm.set(new OnePlayer(gsm,setDifficult.getSelectedIndex() ,setMap.getSelectedIndex()));
+                }
+
             }
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {

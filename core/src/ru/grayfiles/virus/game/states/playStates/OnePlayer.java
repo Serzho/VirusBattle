@@ -228,7 +228,7 @@ public class OnePlayer extends State {
         back.addListener(new InputListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button){
-                new ConfirmStop(skin, stage, field.getField(), 1, gsm, currentPlayer, remainMoves);
+                new ConfirmStop(skin, stage, field.getField(), 0, gsm, currentPlayer, remainMoves);
             }
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
