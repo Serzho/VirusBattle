@@ -22,6 +22,8 @@ import ru.grayfiles.virus.game.states.State;
 import ru.grayfiles.virus.game.states.menuStates.MainMenu;
 import ru.grayfiles.virus.game.states.menuStates.popups.ConfirmStop;
 
+import static com.badlogic.gdx.scenes.scene2d.ui.Table.Debug.cell;
+
 public class OnePlayer extends State {
 
     private Field field;
@@ -95,8 +97,75 @@ public class OnePlayer extends State {
     private void switchDifficult(){
         switch (difficult){
             case 0: peacefulComputerStep(); break;
-            case 1: break;
+            case 1: easyComputerStep(); break;
+            case 2: mediumComputerStep(); break;
         }
+    }
+
+    private void mediumComputerStep(){
+        System.out.printf("COMPUTER STEP NUBMER %d \n", step);
+        boolean goodStep = false;
+
+        int[][] stepCount = new int[10][10];
+        byte[][] cells = field.getField();
+
+        if(step > 3)
+        for(int i = 0; i < 10; i++){
+            for(int k = 0; k < 10; k++){
+                stepCount[i][k] = convertCell(cells[i][k]);
+                System.out.printf("%d ", stepCount[i][k]);
+            }
+            System.out.println();
+        }
+        else easyComputerStep();
+
+        for(int i = 0; i < 10; i++){
+            for(int k = 0; k < 10; k++){
+                //if(stepCount)
+                System.out.printf("%d ", stepCount[i][k]);
+            }
+            System.out.println();
+        }
+
+
+        /*
+        while (!goodStep){
+            int cellX = random.nextInt(10);
+            int cellY = random.nextInt(10);
+
+            System.out.printf("CELL X %d CELL Y %d", cellX, cellY);
+            goodStep = field.step((byte) 1, cellX, cellY, remainMoves.equals(quantityMoves), (byte) 0);
+        }
+
+        if (remainMoves > 0) remainMoves--;
+        else {
+            remainMoves = quantityMoves;
+            if (currentPlayer == quantityPlayers - 1) currentPlayer = 0;
+            else currentPlayer++;
+        }
+        step++;
+        //System.out.printf("Step %d \n", step);
+
+        System.out.printf("Current Player %d \n", currentPlayer);
+        System.out.printf("Remain moves %d \n", remainMoves);
+
+        try {
+            Thread.sleep(50);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }*/
+    }
+
+    private int convertCell(byte cell){
+        switch (cell){
+            case 2: return 0;
+            case 3: return 0;
+            case 1: return -1;
+            case 4: return 20;
+        }
+
+
+        return 1;
     }
 
     private void peacefulComputerStep(){
@@ -126,7 +195,11 @@ public class OnePlayer extends State {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
 
+    private void easyComputerStep(){
+        if(random.nextInt() % 2 == 0)peacefulComputerStep();
+        else mediumComputerStep();
     }
 
     private void step(Vector3 touchPos){

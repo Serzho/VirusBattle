@@ -213,14 +213,19 @@ public class Field {
             for(int k = cellY - 1; k < cellY + 2; k++) {
                 tempCell = cells[correctIndex(i)][correctIndex(k)];
                 //System.out.printf("tempCell %d first %d second %d isCorrect %b \n", tempCell, 1 + player, 4 - player, isCorrect);
-                if(tempCell == 4 - player && checkAtackedCell(player, correctIndex(i), correctIndex(k)))
+                if(tempCell == 4 - player && checkAtackedCell(player, correctIndex(i), correctIndex(k))) {
                     isCorrect = true;
-                else if(tempCell == 1 + player) isCorrect = true;
-                //System.out.printf("CELL X %d CELL Y %d IS CORRECT NOW %b \n", correctIndex(i), correctIndex(k), isCorrect);
+                    System.out.printf("GOOOOG CELL X %d CELL Y %d \n", correctIndex(i), correctIndex(k));
+                }
+                else if(tempCell == 1 + player){
+                    isCorrect = true;
+                    //System.out.printf("PERFECTO CELL X %d, CELL Y %d \n", correctIndex(i), correctIndex(k));
+                }
+               // System.out.printf("CELL X %d CELL Y %d IS CORRECT NOW %b \n", correctIndex(i), correctIndex(k), isCorrect);
             }
 
         if(cells[cellX][cellY] == 1 + player || cells[cellX][cellY] > 2){
-            //System.out.printf("Incorrect cell %d %d count %d \n", cellX, cellY, cells[cellX][cellY]);
+            System.out.printf("Incorrect cell %d %d count %d \n", cellX, cellY, cells[cellX][cellY]);
             isCorrect = false;
         }
 
@@ -240,14 +245,15 @@ public class Field {
             checkedAtackedCells.add(new Vector2(cellX, cellY));
             System.out.printf("Checking %d %d \n", cellX, cellY);
 
-            for (int i = correctIndex(cellX - 1); i <= correctIndex(cellX + 2); i++)
-                for (int k = correctIndex(cellY - 1); k <= correctIndex(cellY + 2); k++) {
+            for (int i = correctIndex(cellX - 1); i < correctIndex(cellX + 2); i++)
+                for (int k = correctIndex(cellY - 1); k < correctIndex(cellY + 2); k++) {
                     if (cells[i][k] == 1 + player) {
                         isConnected = true;
                     }
                     if (cells[i][k] == 4 - player && checkAtackedCell(player, i, k)) {
                         isConnected = true;
                     }
+                    System.out.printf("IS CONNECTED NOW %b, X %d Y %d \n", isConnected, i, k);
                 }
 
             System.out.printf("Is connected %b", isConnected);
