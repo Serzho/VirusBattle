@@ -59,12 +59,12 @@ public class MainMenu extends State {
         statListener();
         actors.addActor(statistics);
 
-        singlePlayer = new ImageTextButton("SinglePlayer", skin);
+        singlePlayer = new ImageTextButton("One player", skin);
         singlePlayer.setPosition(Math.round(VirusGame.WIDTH / 2.0 - singlePlayer.getWidth() / 2.0), Math.round(VirusGame.HEIGHT / 2.0 - VirusGame.HEIGHT / 10.0));
         spListener();
         actors.addActor(singlePlayer);
 
-        multiPlayer = new ImageTextButton("MultiPlayer", skin);
+        multiPlayer = new ImageTextButton("Two players", skin);
         multiPlayer.setPosition(Math.round(VirusGame.WIDTH / 2.0 - multiPlayer.getWidth() / 2.0), Math.round(VirusGame.HEIGHT / 2.0 + VirusGame.HEIGHT / 10.0));
         mpListener();
         actors.addActor(multiPlayer);
