@@ -115,7 +115,7 @@ public class Field {
                 cellY = (int) y;
             }
             //System.out.printf("cellX %d, cellY %d \n", cellX, cellY);
-            switch (cells[correctIndex(cellX)][correctIndex(cellY)]){
+            switch (cells[correctIndex(cellX + 1) - 1][correctIndex(cellY + 1) - 1]){
                 case -1:
                     if(isFirstMove) {
                         cells[cellX][cellY] = (byte) (1 + player);
@@ -209,13 +209,13 @@ public class Field {
 
         //System.out.printf("CURRENT CELL %d %d \n", cellX, cellY);
 
-        for(int i = cellX - 1; i < cellX + 2; i++)
-            for(int k = cellY - 1; k < cellY + 2; k++) {
-                tempCell = cells[correctIndex(i)][correctIndex(k)];
+        for(int i = correctIndex(cellX - 1); i < correctIndex(cellX + 2); i++)
+            for(int k = correctIndex(cellY - 1); k < correctIndex(cellY + 2); k++) {
+                tempCell = cells[correctIndex(i + 1) - 1][correctIndex(k + 1) - 1];
                 //System.out.printf("tempCell %d first %d second %d isCorrect %b \n", tempCell, 1 + player, 4 - player, isCorrect);
-                if(tempCell == 4 - player && checkAtackedCell(player, correctIndex(i), correctIndex(k))) {
+                if(tempCell == 4 - player && checkAtackedCell(player, correctIndex(i + 1) - 1, correctIndex(k + 1) - 1)) {
                     isCorrect = true;
-                    System.out.printf("GOOOOG CELL X %d CELL Y %d \n", correctIndex(i), correctIndex(k));
+                    System.out.printf("GOOOOG CELL X %d CELL Y %d \n", correctIndex(i + 1) - 1, correctIndex(k + 1) - 1);
                 }
                 else if(tempCell == 1 + player){
                     isCorrect = true;
@@ -267,7 +267,7 @@ public class Field {
     private int correctIndex(int index){
         //System.out.printf("index %d \n", index);
         if (index < 0) index = 0;
-        else if (index > 9) index = 9;
+        else if (index > 10) index = 10;
         //System.out.printf("second Index %d \n", index);
         return index;
     }
